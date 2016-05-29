@@ -1,0 +1,8 @@
+<h1>Powitać</h1>
+<div ng-show="isAuthenticated()">
+	<p>The ID is {{greeting.id}}</p>
+	<p>The content is {{greeting.content}}</p>
+</div>
+<div ng-show="!isAuthenticated()">
+	<p>Login to see your greeting</p>
+</div>

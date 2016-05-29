@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<title>Hello itmas_server</title>
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+</head>
+
+<body ng-app="itmas_server">
+
+    <div ng-controller="NavbarController as nav" class="container" ng-cloak="">
+        <ul class="nav nav-pills" role="tablist">
+            <li ng-class="{active: $state.includes('home')}"><a ui-sref="home">home</a></li>
+            <li ng-class="{active: $state.includes('users')}" ng-show="isAuthenticated() && hasAuthority('ROLE_ADMIN')"><a ui-sref="users">users</a></li>
+            <li ng-class="{active: $state.includes('register')}" ng-show="!isAuthenticated()"><a ui-sref="register">register</a></li>
+            <li ng-class="{active: $state.includes('login')}" ng-show="!isAuthenticated()"><a ui-sref="login">login</a></li>
+            <li ng-show="isAuthenticated()"><a href="" ng-click="logout()">logout</a></li>
+        </ul>
+    </div>
+
+
+    <div class="container">
+        <!-- <div ui-view="navbar" ng-cloak=""></div> -->
+
+        <div class="well" ui-view="content"></div>
+
+        <div class="footer">
+            <p>This is your footer</p>
+        </div>
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+	<script src="app/app.js"></script>
+
+    <script src="app/components/home/home.controller.js"></script>
+    <script src="app/components/home/home.js"></script>
+
+    <script src="app/components/login/login.controller.js"></script>
+    <script src="app/components/login/login.js"></script>
+
+    <script src="app/components/register/register.controller.js"></script>
+    <script src="app/components/register/register.js"></script>
+
+    <script src="app/components/navbar/navbar.controller.js"></script>
+
+    <script src="app/components/users/users.controller.js"></script>
+    <script src="app/components/users/users.js"></script>
+
+    <script src="app/service/register.service.js"></script>
+    <script src="app/service/auth.service.js"></script>
+	<script src="app/service/account.service.js"></script>
+    <script src="app/service/principal.service.js"></script>
+
+</body>
+</html>

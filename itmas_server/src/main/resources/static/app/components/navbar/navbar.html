@@ -1,0 +1,11 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div ng-controller="NavbarController as nav" class="container">
+        <p>test</p>
+        <ul class="nav nav-pills" role="tablist">
+            <li ng-class="{active: $state.includes('home')}"><a ui-sref="home">home</a></li>
+            <li ng-class="{active: $state.includes('register')}" ng-show="!isAuthenticated()"><a ui-sref="register">register</a></li>
+            <li ng-class="{active: $state.includes('login')}" ng-show="!isAuthenticated()"><a ui-sref="login">login</a></li>
+            <li ng-show="isAuthenticated()"><a href="" ng-click="logout()">logout</a></li>
+        </ul>
+    </div>
+</nav>

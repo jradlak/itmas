@@ -1,0 +1,55 @@
+
+    <div class="alert alert-success" ng-show="success">
+        <strong>Registration saved!</strong> Please you can now log in.
+    </div>
+
+    <div class="alert alert-danger" ng-show="error">
+        <strong>Registration failed!</strong> Please try again later.
+    </div>
+
+    <div class="alert alert-danger" ng-show="errorUserExists">
+        <strong>Login name already registered!</strong> Please choose another one.
+    </div>
+
+    <div class="alert alert-danger" ng-show="errorEmailExists">
+        <strong>E-mail is already in use!</strong> Please choose another one.
+    </div>
+
+    <div class="alert alert-danger" ng-show="doNotMatch">
+        The password and its confirmation do not match!
+    </div>
+
+
+<form role="form" ng-submit="register()">
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text"
+               class="form-control" id="username" login="username" ng-model="registerAccount.login"/>
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password"
+               class="form-control" id="password"  ng-model="registerAccount.password"/>
+    </div>
+    <div class="form-group">
+        <label for="confirmPassword">Retype password:</label>
+        <input type="password"
+               class="form-control" id="confirmPassword" ng-model="registerAccount.confirmPassword"/>
+    </div>
+    <div class="form-group">
+        <label for="firstName">First name:</label>
+        <input type="text"
+               class="form-control" id="firstName" ng-model="registerAccount.firstName"/>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last name:</label>
+        <input type="text"
+               class="form-control" id="lastName" ng-model="registerAccount.lastName"/>
+    </div>
+    <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="text"
+               class="form-control" id="email" ng-model="registerAccount.email"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
