@@ -88,9 +88,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/register").permitAll()
                     .antMatchers("/api/**", "/resource").authenticated()
                 .and()
-                    .csrf()
-                    .csrfTokenRepository(csrfTokenRepository()).and()
-                    .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+                    .csrf().disable(); // TODO: fix this!!!
+                    //.csrf()
+                    //.csrfTokenRepository(csrfTokenRepository()).and()
+                    //.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
 
