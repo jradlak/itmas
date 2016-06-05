@@ -13,7 +13,17 @@ public class CommandTest {
     public void commandExtractTest() {
         Command command = new Command("user 'jrd' add");
         Command commandShow = new Command("user show");
+
         Assert.assertTrue(Command.CommandType.USER_ADD.name().equals(command.getCommandType().name()));
         Assert.assertTrue(Command.CommandType.USER_SHOW.name().equals(commandShow.getCommandType().name()));
+    }
+
+    @Test
+    public void extractParametersTest() {
+        Command command = new Command("user 'jrd' add");
+        String[] parameters = command.getParameters();
+
+        Assert.assertTrue(parameters != null && parameters.length == 1);
+        Assert.assertTrue("jrd".equals(parameters[0]));
     }
 }

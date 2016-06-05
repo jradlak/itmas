@@ -30,7 +30,7 @@ public class Command {
         }
     }
 
-    private CommandType[] commandValues = {
+    private static final CommandType[] commandTypes = {
             CommandType.USER_ADD,
             CommandType.USER_REMOVE,
             CommandType.USER_SHOW,
@@ -54,24 +54,24 @@ public class Command {
     }
 
     private void extract(final String rawCommand) {
-        Arrays.asList(commandValues).stream().forEach(c -> {
+        Arrays.asList(commandTypes).stream().forEach(c -> {
             Pattern pattern = Pattern.compile(c.getPattern());
             Matcher m = pattern.matcher(rawCommand);
             if (m.matches()) {
                 commandType = c;
-                parameters = extractParams(m.group(0));
+                parameters = extractParameters(m.group(0));
                 return;
             }
         });
     }
 
-    private String[] extractParams(String command) {
+    private String[] extractParameters(String command) {
         Pattern pattern = Pattern.compile("'(.*?)'");
         Matcher m = pattern.matcher(command);
         if (m.find()) {
             List<String> params = new ArrayList<>();
             for (int i = 0; i < m.groupCount(); i++) {
-                params.add(m.group(i).replace(".", ""));
+                params.add(m.group(i).replace("'", ""));
             }
 
             return params.toArray(new String[] {});
