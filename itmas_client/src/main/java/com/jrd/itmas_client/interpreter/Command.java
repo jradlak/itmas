@@ -1,6 +1,8 @@
 package com.jrd.itmas_client.interpreter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,11 +10,14 @@ import java.util.regex.Pattern;
  * Created by jakub on 05.06.16.
  */
 public class Command {
+
+    private final static String wPattern = "('\\w*' )?";
+
     public enum CommandType {
-        USER_ADD("user \\w* ?add"),
-        USER_REMOVE("user \\w* ?remove"),
-        USER_SHOW("user \\w* ?show"),
-        USER_EDIT("user \\w* ?edit");
+        USER_ADD("user " + wPattern + "add"),
+        USER_REMOVE("user " + wPattern + "remove"),
+        USER_SHOW("user " + wPattern + "show"),
+        USER_EDIT("user " + wPattern + "edit");
 
         private String pattern;
 
@@ -52,11 +57,26 @@ public class Command {
         Arrays.asList(commandValues).stream().forEach(c -> {
             Pattern pattern = Pattern.compile(c.getPattern());
             Matcher m = pattern.matcher(rawCommand);
-
             if (m.matches()) {
                 commandType = c;
-                //parameters =
-            };
+                parameters = extractParams(m.group(0));
+                return;
+            }
         });
+    }
+
+    private String[] extractParams(String command) {
+        Pattern pattern = Pattern.compile("'(.*?)'");
+        Matcher m = pattern.matcher(command);
+        if (m.find()) {
+            List<String> params = new ArrayList<>();
+            for (int i = 0; i < m.groupCount(); i++) {
+                params.add(m.group(i).replace(".", ""));
+            }
+
+            return params.toArray(new String[] {});
+        }
+
+        return new String[] {};
     }
 }
