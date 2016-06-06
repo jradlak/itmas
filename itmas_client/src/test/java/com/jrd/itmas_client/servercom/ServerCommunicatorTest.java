@@ -13,13 +13,13 @@ public class ServerCommunicatorTest {
 
     private ServerCommunicator serverCommunicator;
 
-    @Before
-    public void setup() {
-        serverCommunicator = new ServerCommunicator();
-    }
+    //@Before
+    //public void setup() {
+    //    serverCommunicator = new ServerCommunicator();
+    //}
 
-    @Test
-    public void connectToServerTest() throws IOException {
-        serverCommunicator.connectToServer();
-    }
+    //@Test
+    //public void connectToServerTest() throws IOException {
+    //    serverCommunicator.connectToServer();
+    //}
 }

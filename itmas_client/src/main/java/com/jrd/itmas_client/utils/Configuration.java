@@ -14,11 +14,12 @@ public class Configuration {
     public static final String configFileName = "/.itmas";
 
     public static class Keys {
+        public static final String SERVER = "server";
         public static final String USER = "user";
         public static final String PASSWORD = "password";
     }
 
-    Properties properties;
+    private Properties properties;
 
     public Configuration() throws IOException {
         this("");
@@ -31,7 +32,6 @@ public class Configuration {
 
         properties = new Properties();
         String propFileName = configurationFilePath;
-        //InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
         InputStream inputStream = new FileInputStream(propFileName);
 
         if (inputStream != null) {
