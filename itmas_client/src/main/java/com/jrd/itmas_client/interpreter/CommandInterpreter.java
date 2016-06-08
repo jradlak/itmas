@@ -14,7 +14,7 @@ public class CommandInterpreter {
 
     public void interpret(Command command) throws IOException {
         if (command.getCommandType() == Command.CommandType.USER_SHOW) {
-            String userLogin = command.getParameters()[0];
+            String userLogin = command.getParameter(0);
             commandExecutor.showUser(userLogin);
         }
     }

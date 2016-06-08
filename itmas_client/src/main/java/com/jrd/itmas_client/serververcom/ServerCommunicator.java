@@ -7,8 +7,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.SystemDefaultCredentialsProvider;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
@@ -25,20 +27,25 @@ public class ServerCommunicator {
 
     private HttpClient client;
 
+    private String serverAddress;
+
     public ServerCommunicator(Configuration configuration) {
         client = HttpClientBuilder.create().build();
         this.configuration = configuration;
+        this.serverAddress = configuration.getProperty(Configuration.Keys.SERVER);
     }
 
     public UserDTO getUserDataFromServer(String userLogin) throws IOException {
         authenticate();
         UserDTO userDTO = new UserDTO();
+        HttpGet get = new HttpGet(serverAddress + "/api/account");
+        HttpResponse response = client.execute(get);
+        System.out.println("Response = " + response.toString());
         logout();
         return userDTO;
     }
 
     private void authenticate() throws IOException {
-        String serverAddress = configuration.getProperty(Configuration.Keys.SERVER);
         HttpPost post = new HttpPost(serverAddress + "/api/authentication");
         post.setHeader("Content-Type", "application/x-www-form-urlencoded");
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();

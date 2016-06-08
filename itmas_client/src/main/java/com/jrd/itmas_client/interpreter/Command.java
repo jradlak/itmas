@@ -53,6 +53,14 @@ public class Command {
         return parameters;
     }
 
+    public String getParameter(int i) {
+        if (parameters.length < i) {
+            return parameters[i];
+        } else {
+            return "";
+        }
+    }
+
     private void extract(final String rawCommand) {
         Arrays.asList(commandTypes).stream().forEach(c -> {
             Pattern pattern = Pattern.compile(c.getPattern());
