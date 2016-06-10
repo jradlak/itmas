@@ -12,7 +12,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.SystemDefaultCredentialsProvider;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -37,10 +40,10 @@ public class ServerCommunicator {
 
     public UserDTO getUserDataFromServer(String userLogin) throws IOException {
         authenticate();
-        UserDTO userDTO = new UserDTO();
-        HttpGet get = new HttpGet(serverAddress + "/api/account");
-        HttpResponse response = client.execute(get);
-        System.out.println("Response = " + response.toString());
+
+        String json = retreiveUserJson(userLogin);
+        UserDTO userDTO = convertUserJsonToDto(json);
+
         logout();
         return userDTO;
     }
@@ -61,5 +64,18 @@ public class ServerCommunicator {
 
     private void logout() {
         //TODO
+    }
+
+    private String retreiveUserJson(String userLogin) throws IOException {
+        HttpGet get = new HttpGet(serverAddress + "/api/account");
+        HttpResponse response = client.execute(get);
+        String json = EntityUtils.toString(response.getEntity());
+        return json;
+    }
+
+    private UserDTO convertUserJsonToDto(String json) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        UserDTO userDTO = mapper.readValue(json, UserDTO.class);
+        return userDTO;
     }
 }
