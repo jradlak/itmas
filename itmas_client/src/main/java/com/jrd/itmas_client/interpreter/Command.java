@@ -54,7 +54,7 @@ public class Command {
     }
 
     public String getParameter(int i) {
-        if (parameters.length < i) {
+        if (parameters.length > i) {
             return parameters[i];
         } else {
             return "";

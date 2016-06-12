@@ -9,10 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -49,9 +46,15 @@ public class AccountResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> getAccount() {
         log.info("getAccount");
-        return Optional.ofNullable(userService.getUserWithAuthorities())
-                .map(user -> new ResponseEntity<>(new UserDTO(user), HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+        return prepareUserDTOResponseEntity(userService.getUserWithAuthorities());
+    }
+
+    @RequestMapping(value = "/accountByLogin/{login:[_'.@a-z0-9-]+}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> getAccountByLogin(@PathVariable String login) {
+        log.info("getAccountByLogin, login = " + login);
+        return prepareUserDTOResponseEntity(userService.getUserWithAuthorities(login));
     }
 
     @RequestMapping(value = "/register",
@@ -66,5 +69,11 @@ public class AccountResource {
                             log.info("User created = " + user.toString());
                             return new ResponseEntity<>(HttpStatus.CREATED);
                         });
+    }
+
+    private ResponseEntity<UserDTO> prepareUserDTOResponseEntity(User userFromDB) {
+        return Optional.ofNullable(userFromDB)
+                .map(user -> new ResponseEntity<>(new UserDTO(user), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 }

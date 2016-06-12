@@ -1,4 +1,4 @@
 #itmas client configuration file
-server=http://localhost:8080h
+server=http://localhost:8080
 user=admin
 password=user

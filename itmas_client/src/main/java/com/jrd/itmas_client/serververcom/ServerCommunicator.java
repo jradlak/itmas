@@ -10,14 +10,12 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.SystemDefaultCredentialsProvider;
+
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import java.awt.*;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +65,13 @@ public class ServerCommunicator {
     }
 
     private String retreiveUserJson(String userLogin) throws IOException {
-        HttpGet get = new HttpGet(serverAddress + "/api/account");
+        String queryString = serverAddress + "/api/account";
+        if (userLogin != null && !userLogin.isEmpty()) {
+            queryString += "ByLogin/" + userLogin;
+        }
+
+        HttpGet get = new HttpGet(queryString);
+
         HttpResponse response = client.execute(get);
         String json = EntityUtils.toString(response.getEntity());
         return json;

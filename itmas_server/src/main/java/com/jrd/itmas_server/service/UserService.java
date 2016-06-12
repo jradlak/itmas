@@ -51,6 +51,13 @@ public class UserService {
         return user;
     }
 
+    @Transactional(readOnly = true)
+    public User getUserWithAuthorities(String userLogin) {
+        User user = userRepository.findOneByLogin(userLogin).get();
+        user.getAuthorities().size();
+        return user;
+    }
+
     public User createUserInformation(String login, String password, String firstName, String lastName, String email) {
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");

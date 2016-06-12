@@ -6,6 +6,7 @@ import com.jrd.itmas_client.interpreter.CommandInterpreter;
 import com.jrd.itmas_client.serververcom.ServerCommunicator;
 import com.jrd.itmas_client.ui.UIHandler;
 import com.jrd.itmas_client.utils.Configuration;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -24,16 +25,24 @@ public class MainApplicationTest {
 
     private static CommandInterpreter commandInterpreter;
 
+    @Before
+    public void setup() throws IOException {
+        prepareDependencies();
+    }
+
     @Test
     public void testRetreiveUserInfoFromServer() throws IOException {
-        try {
-            prepareDependencies();
-            String rawCommand = "user show";
-            Command command = new Command(rawCommand);
-            commandInterpreter.interpret(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        interpretCommand("user show");
+    }
+
+    @Test
+    public void testGetExplicitUserInfoFromServer() throws IOException {
+        interpretCommand("user 'user' show");
+    }
+
+    private void interpretCommand(String rawCommand) throws IOException {
+        Command command = new Command(rawCommand);
+        commandInterpreter.interpret(command);
     }
 
     private static void prepareDependencies() throws IOException {
