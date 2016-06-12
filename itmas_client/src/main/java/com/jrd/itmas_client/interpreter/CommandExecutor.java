@@ -1,7 +1,7 @@
 package com.jrd.itmas_client.interpreter;
 
-import com.jrd.itmas_client.serververcom.ServerCommunicator;
-import com.jrd.itmas_client.serververcom.dto.UserDTO;
+import com.jrd.itmas_client.servercom.ServerCommunicator;
+import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.ui.UIHandler;
 
 import java.io.IOException;

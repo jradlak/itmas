@@ -1,7 +1,7 @@
-package com.jrd.itmas_client.serververcom;
+package com.jrd.itmas_client.servercom;
 
 
-import com.jrd.itmas_client.serververcom.dto.UserDTO;
+import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.utils.Configuration;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by Kuba on 2016-05-29.
  */
-public class ServerCommunicator {
+public class ServerCommunicatorImpl implements ServerCommunicator {
 
     private Configuration configuration;
 
@@ -30,12 +30,13 @@ public class ServerCommunicator {
 
     private String serverAddress;
 
-    public ServerCommunicator(Configuration configuration) {
+    public ServerCommunicatorImpl(Configuration configuration) {
         client = HttpClientBuilder.create().build();
         this.configuration = configuration;
         this.serverAddress = configuration.getProperty(Configuration.Keys.SERVER);
     }
 
+    @Override
     public UserDTO getUserDataFromServer(String userLogin) throws IOException {
         authenticate();
 

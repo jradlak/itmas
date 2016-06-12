@@ -1,4 +1,4 @@
-package com.jrd.itmas_client.serververcom.dto;
+package com.jrd.itmas_client.servercom.dto;
 
 import java.util.Set;
 

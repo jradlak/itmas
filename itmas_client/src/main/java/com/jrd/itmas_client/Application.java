@@ -3,7 +3,8 @@ package com.jrd.itmas_client;
 import com.jrd.itmas_client.interpreter.Command;
 import com.jrd.itmas_client.interpreter.CommandExecutor;
 import com.jrd.itmas_client.interpreter.CommandInterpreter;
-import com.jrd.itmas_client.serververcom.ServerCommunicator;
+import com.jrd.itmas_client.servercom.ServerCommunicator;
+import com.jrd.itmas_client.servercom.ServerCommunicatorImpl;
 import com.jrd.itmas_client.ui.UIHandler;
 import com.jrd.itmas_client.utils.Configuration;
 
@@ -37,7 +38,7 @@ public class Application {
 
     private static void prepareDependencies() throws IOException {
         configuration = new Configuration(".itmas");
-        serverCommunicator = new ServerCommunicator(configuration);
+        serverCommunicator = new ServerCommunicatorImpl(configuration);
         uiHandler = new UIHandler();
         commandExecutor = new CommandExecutor(serverCommunicator, uiHandler);
         commandInterpreter = new CommandInterpreter(commandExecutor);

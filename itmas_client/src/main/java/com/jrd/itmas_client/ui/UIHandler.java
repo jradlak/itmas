@@ -1,6 +1,6 @@
 package com.jrd.itmas_client.ui;
 
-import com.jrd.itmas_client.serververcom.dto.UserDTO;
+import com.jrd.itmas_client.servercom.dto.UserDTO;
 
 import java.io.PrintStream;
 import java.util.List;
