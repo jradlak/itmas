@@ -45,9 +45,6 @@ public class ApplicationTests {
     @Inject
     private UserRepository userRepository;
 
-    @Autowired
-    private WebApplicationContext wac;
-
     private MockMvc mockMvc;
 
     @Before
