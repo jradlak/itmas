@@ -50,7 +50,6 @@ public class ApplicationTests {
     @Before
     public void before() {
         MockitoAnnotations.initMocks(this);
-        //ReflectionTestUtils.setField(accountResource, "userRepository", userRepository);
         AccountResource accountResource = new AccountResource();
         ReflectionTestUtils.setField(accountResource, "userRepository", userRepository);
 

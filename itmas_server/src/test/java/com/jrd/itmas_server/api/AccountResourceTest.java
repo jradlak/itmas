@@ -36,9 +36,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @IntegrationTest
 public class AccountResourceTest  {
-    @Value("${local.server.port}")
-    private int port;
-
     private RestTemplate template = new TestRestTemplate();
 
     @Inject
@@ -46,9 +43,6 @@ public class AccountResourceTest  {
 
     @Inject
     private UserService userService;
-
-    @Autowired
-    private WebApplicationContext wac;
 
     private MockMvc mockMvc;
 

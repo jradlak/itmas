@@ -1,19 +1,20 @@
 package com.jrd.itmas_client;
 
+import com.jrd.itmas_client.infrastructure.exceptions.CommandSyntaxException;
 import com.jrd.itmas_client.interpreter.Command;
 import com.jrd.itmas_client.interpreter.CommandExecutor;
 import com.jrd.itmas_client.interpreter.CommandInterpreter;
 import com.jrd.itmas_client.servercom.ServerCommunicator;
 import com.jrd.itmas_client.servercom.ServerCommunicatorImpl;
 import com.jrd.itmas_client.ui.UIHandler;
-import com.jrd.itmas_client.utils.Configuration;
+import com.jrd.itmas_client.infrastructure.utils.*;
 
 import java.io.IOException;
 
 /**
  * Created by Kuba on 2016-05-29.
  */
-public class Application {
+public class ItmasClientApplication {
 
     private static Configuration configuration;
 
@@ -28,11 +29,12 @@ public class Application {
     public static void main(String[] args) {
         try {
             prepareDependencies();
+            checkCommanLine(args);
             String rawCommand = args[0];
             Command command = new Command(rawCommand);
             commandInterpreter.interpret(command);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            uiHandler.printErrorMessage(e);
         }
     }
 
@@ -42,5 +44,11 @@ public class Application {
         uiHandler = new UIHandler();
         commandExecutor = new CommandExecutor(serverCommunicator, uiHandler);
         commandInterpreter = new CommandInterpreter(commandExecutor);
+    }
+
+    private static void checkCommanLine(String[] args) throws Exception {
+        if (args.length == 0) {
+            throw new CommandSyntaxException("There is no arguments. To get help please tape: itmas -help");
+        }
     }
 }

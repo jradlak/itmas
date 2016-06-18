@@ -1,4 +1,4 @@
-package com.jrd.itmas_client.utils;
+package com.jrd.itmas_client.infrastructure.utils;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,6 +29,6 @@ public class ConfigurationTest {
         String propPassword = configuration.getProperty(Configuration.Keys.PASSWORD);
 
         Assert.assertTrue("admin".equals(propUser));
-        Assert.assertTrue("adminPass".equals(propPassword));
+        Assert.assertTrue("user".equals(propPassword));
     }
 }

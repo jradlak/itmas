@@ -1,5 +1,6 @@
 package com.jrd.itmas_client.ui;
 
+import com.jrd.itmas_client.infrastructure.exceptions.CommandSyntaxException;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 
 import java.io.PrintStream;
@@ -26,6 +27,14 @@ public class UIHandler {
 
     public void printTable(List<String> rows) {
         //TODO
+    }
+
+    public void printErrorMessage(Exception ex) {
+        if (ex instanceof CommandSyntaxException) {
+            ou.println("Syntax Error. " + ex.getMessage());
+        } else {
+            ou.println(ex.getMessage()); // TODO: extend this
+        }
     }
 
     public void printUserData(UserDTO userDTO) {

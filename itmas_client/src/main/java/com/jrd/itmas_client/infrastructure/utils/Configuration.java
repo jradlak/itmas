@@ -1,4 +1,4 @@
-package com.jrd.itmas_client.utils;
+package com.jrd.itmas_client.infrastructure.utils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

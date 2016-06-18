@@ -6,7 +6,7 @@ import com.jrd.itmas_client.interpreter.CommandInterpreter;
 import com.jrd.itmas_client.servercom.ServerCommunicator;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.ui.UIHandler;
-import com.jrd.itmas_client.utils.Configuration;
+import com.jrd.itmas_client.infrastructure.utils.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ import java.util.LinkedHashSet;
 /**
  * Created by jakub on 08.06.16.
  */
-public class MainApplicationTest {
+public class MainItmasClientApplicationTest {
 
     private static Configuration configuration;
 

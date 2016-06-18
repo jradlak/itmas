@@ -2,7 +2,7 @@ package com.jrd.itmas_client.servercom;
 
 
 import com.jrd.itmas_client.servercom.dto.UserDTO;
-import com.jrd.itmas_client.utils.Configuration;
+import com.jrd.itmas_client.infrastructure.utils.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
