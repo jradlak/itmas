@@ -1,6 +1,6 @@
 package com.jrd.itmas_server.api;
 
-import com.jrd.itmas_server.Application;
+import com.jrd.itmas_server.ItmasServerApplication;
 import com.jrd.itmas_server.api.rest.AccountResource;
 import com.jrd.itmas_server.repository.UserRepository;
 import com.jrd.itmas_server.service.UserService;
@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
@@ -20,7 +18,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
 
@@ -32,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by jakub on 13.06.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = ItmasServerApplication.class)
 @WebAppConfiguration
 @IntegrationTest
 public class AccountResourceTest  {

@@ -6,10 +6,13 @@ import com.jrd.itmas_client.interpreter.CommandExecutor;
 import com.jrd.itmas_client.interpreter.CommandInterpreter;
 import com.jrd.itmas_client.servercom.ServerCommunicator;
 import com.jrd.itmas_client.servercom.ServerCommunicatorImpl;
+import com.jrd.itmas_client.ui.RawCommandGenerator;
 import com.jrd.itmas_client.ui.UIHandler;
 import com.jrd.itmas_client.infrastructure.utils.*;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Logger;
 
 /**
  * Created by Kuba on 2016-05-29.
@@ -26,11 +29,13 @@ public class ItmasClientApplication {
 
     private static CommandInterpreter commandInterpreter;
 
+    private static final Logger log = Logger.getLogger(ItmasClientApplication.class.getName());
+
     public static void main(String[] args) {
         try {
             prepareDependencies();
             checkCommanLine(args);
-            String rawCommand = args[0];
+            String rawCommand = RawCommandGenerator.generateRawCommand(args);
             Command command = new Command(rawCommand);
             commandInterpreter.interpret(command);
         } catch (Exception e) {
@@ -47,6 +52,7 @@ public class ItmasClientApplication {
     }
 
     private static void checkCommanLine(String[] args) throws Exception {
+        log.info(Arrays.toString(args));
         if (args.length == 0) {
             throw new CommandSyntaxException("There is no arguments. To get help please tape: itmas -help");
         }

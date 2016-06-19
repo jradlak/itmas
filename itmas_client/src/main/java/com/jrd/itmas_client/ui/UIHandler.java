@@ -1,6 +1,7 @@
 package com.jrd.itmas_client.ui;
 
 import com.jrd.itmas_client.infrastructure.exceptions.CommandSyntaxException;
+import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 
 import java.io.PrintStream;
@@ -32,8 +33,12 @@ public class UIHandler {
     public void printErrorMessage(Exception ex) {
         if (ex instanceof CommandSyntaxException) {
             ou.println("Syntax Error. " + ex.getMessage());
+        } else if (ex instanceof ServerCommunicationException) {
+            ou.println("Server communication error. " + ex.getMessage());
         } else {
-            ou.println(ex.getMessage()); // TODO: extend this
+            ou.println(ex.getMessage());
+            ex.printStackTrace();
+            // TODO: extend this
         }
     }
 

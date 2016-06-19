@@ -1,5 +1,6 @@
 package com.jrd.itmas_client.interpreter;
 
+import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 import com.jrd.itmas_client.servercom.ServerCommunicator;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.ui.UIHandler;
@@ -20,7 +21,7 @@ public class CommandExecutor {
         this.uiHandler = uiHandler;
     }
 
-    public void showUser(String userLogin) throws IOException {
+    public void showUser(String userLogin) throws ServerCommunicationException {
         UserDTO userDTO = serverCommunicator.getUserDataFromServer(userLogin);
         uiHandler.printUserData(userDTO);
     }

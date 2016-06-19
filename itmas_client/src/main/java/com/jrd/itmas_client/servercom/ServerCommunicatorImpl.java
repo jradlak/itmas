@@ -1,6 +1,7 @@
 package com.jrd.itmas_client.servercom;
 
 
+import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.infrastructure.utils.*;
 import org.apache.http.HttpResponse;
@@ -37,7 +38,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
     }
 
     @Override
-    public UserDTO getUserDataFromServer(String userLogin) throws IOException {
+    public UserDTO getUserDataFromServer(String userLogin) throws ServerCommunicationException {
         authenticate();
 
         String json = retreiveUserJson(userLogin);
@@ -47,25 +48,26 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
         return userDTO;
     }
 
-    private void authenticate() throws IOException {
+    private void authenticate() throws ServerCommunicationException {
         HttpPost post = new HttpPost(serverAddress + "/api/authentication");
         post.setHeader("Content-Type", "application/x-www-form-urlencoded");
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
         urlParameters.add(new BasicNameValuePair("username", configuration.getProperty(Configuration.Keys.USER)));
         urlParameters.add(new BasicNameValuePair("password", configuration.getProperty(Configuration.Keys.PASSWORD)));
 
-        post.setEntity(new UrlEncodedFormEntity(urlParameters));
-
-        HttpResponse response = client.execute(post);
-        System.out.println("Response Code : "
-                + response.getStatusLine().getStatusCode());
+        try {
+            post.setEntity(new UrlEncodedFormEntity(urlParameters));
+            client.execute(post);
+        } catch (IOException ex) {
+            throw new ServerCommunicationException("There is problem with authentication.", ex);
+        }
     }
 
     private void logout() {
         //TODO
     }
 
-    private String retreiveUserJson(String userLogin) throws IOException {
+    private String retreiveUserJson(String userLogin) throws ServerCommunicationException {
         String queryString = serverAddress + "/api/account";
         if (userLogin != null && !userLogin.isEmpty()) {
             queryString += "ByLogin/" + userLogin;
@@ -73,14 +75,22 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
 
         HttpGet get = new HttpGet(queryString);
 
-        HttpResponse response = client.execute(get);
-        String json = EntityUtils.toString(response.getEntity());
-        return json;
+        try {
+            HttpResponse response = client.execute(get);
+            String json = EntityUtils.toString(response.getEntity());
+            return json;
+        } catch (IOException ex) {
+            throw new ServerCommunicationException("There is problem with get user data from server", ex);
+        }
     }
 
-    private UserDTO convertUserJsonToDto(String json) throws IOException {
+    private UserDTO convertUserJsonToDto(String json) throws ServerCommunicationException {
         ObjectMapper mapper = new ObjectMapper();
-        UserDTO userDTO = mapper.readValue(json, UserDTO.class);
-        return userDTO;
+        try {
+            UserDTO userDTO = mapper.readValue(json, UserDTO.class);
+            return userDTO;
+        } catch (IOException ex) {
+            throw new ServerCommunicationException("There is problem with interpret user data from server", ex);
+        }
     }
 }
