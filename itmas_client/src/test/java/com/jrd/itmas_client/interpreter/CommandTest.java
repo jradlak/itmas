@@ -20,10 +20,10 @@ public class CommandTest {
 
     @Test
     public void extractParametersTest() {
-        Command command = new Command("user 'jrd' add");
+        Command command = new Command("user 'user' show");
         String[] parameters = command.getParameters();
 
         Assert.assertTrue(parameters != null && parameters.length == 1);
-        Assert.assertTrue("jrd".equals(parameters[0]));
+        Assert.assertTrue("user".equals(parameters[0]));
     }
 }

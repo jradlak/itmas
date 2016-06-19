@@ -38,6 +38,8 @@ public class Command {
             CommandType.USER_EDIT
     };
 
+    private static final Logger log = Logger.getLogger(Command.class.getName());
+
     private CommandType commandType;
 
     private String[] parameters;

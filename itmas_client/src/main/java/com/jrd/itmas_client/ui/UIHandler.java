@@ -5,6 +5,7 @@ import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationExcepti
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,6 +44,12 @@ public class UIHandler {
     }
 
     public void printUserData(UserDTO userDTO) {
-        printMessage(userDTO.toString());
+        printMessage("User INFO:");
+        printMessage("-------------------------");
+        printMessage("Login:        " + userDTO.getLogin());
+        printMessage("First name:   " + userDTO.getFirstName());
+        printMessage("Last name:    " + userDTO.getLastName());
+        printMessage("E-mail:       " + userDTO.getEmail());
+        printMessage("Authorities:  " + userDTO.getAuthorities());
     }
 }

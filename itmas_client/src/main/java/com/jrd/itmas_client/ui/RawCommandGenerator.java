@@ -8,6 +8,10 @@ import java.util.StringJoiner;
  */
 public class RawCommandGenerator {
     public static String generateRawCommand(String[] args) {
+        if (args.length == 3) {
+            args[1] = "'" + args[1] + "'"; //TODO: It is ticking bomb: Do smthng with THAT!!!
+        }
+        
         StringJoiner sj = new StringJoiner(" ");
         Arrays.asList(args).forEach(s -> sj.add(s));
         return sj.toString();
