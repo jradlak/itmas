@@ -68,6 +68,11 @@ public class MainItmasClientApplicationTest {
 
                 return adminDTO;
             }
+
+            @Override
+            public void userAdd(UserDTO userDTO) throws ServerCommunicationException {
+
+            }
         };
 
         uiHandler = new UIHandler();

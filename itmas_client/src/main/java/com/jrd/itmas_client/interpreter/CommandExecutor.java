@@ -25,4 +25,15 @@ public class CommandExecutor {
         UserDTO userDTO = serverCommunicator.getUserDataFromServer(userLogin);
         uiHandler.printUserData(userDTO);
     }
+
+    public void addUser(String userLogin) throws ServerCommunicationException {
+        UserDTO userDTO = getNewUserInfo(userLogin);
+        serverCommunicator.userAdd(userDTO);
+    }
+
+    private UserDTO getNewUserInfo(String userLogin) {
+        UserDTO user = new UserDTO();
+        //TODO!!!
+        return user;
+    }
 }

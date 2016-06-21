@@ -6,10 +6,12 @@ import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.infrastructure.utils.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -17,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +51,28 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
         return userDTO;
     }
 
+    @Override
+    public void userAdd(UserDTO userDTO) throws ServerCommunicationException {
+        authenticate();
+
+        HttpPost post = getPostMethod("/api/register");
+        try {
+            StringEntity userEnt = new StringEntity(convertUserDtoToJson(userDTO));
+            post.setEntity(userEnt);
+            client.execute(post);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        logout();
+    }
+
     private void authenticate() throws ServerCommunicationException {
-        HttpPost post = new HttpPost(serverAddress + "/api/authentication");
-        post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        HttpPost post = getPostMethod("/api/authentication");
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
         urlParameters.add(new BasicNameValuePair("username", configuration.getProperty(Configuration.Keys.USER)));
         urlParameters.add(new BasicNameValuePair("password", configuration.getProperty(Configuration.Keys.PASSWORD)));
@@ -92,5 +114,21 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
         } catch (IOException ex) {
             throw new ServerCommunicationException("There is problem with interpret user data from server", ex);
         }
+    }
+
+    private String convertUserDtoToJson(UserDTO userDTO) throws ServerCommunicationException {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String json = mapper.writeValueAsString(userDTO);
+            return  json;
+        } catch (IOException e) {
+            throw new ServerCommunicationException("There is problem with converting user data to json", e);
+        }
+    }
+
+    private HttpPost getPostMethod(String url) {
+        HttpPost post = new HttpPost(serverAddress + url);
+        post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        return post;
     }
 }
