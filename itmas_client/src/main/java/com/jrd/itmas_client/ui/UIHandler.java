@@ -36,7 +36,9 @@ public class UIHandler {
             ou.println("Syntax Error. " + ex.getMessage());
         } else if (ex instanceof ServerCommunicationException) {
             ou.println("Server communication error. " + ex.getMessage());
-        } else {
+        } else if (ex instanceof CommandSyntaxException) {
+            ou.println("Command execution error." + ex.getMessage());
+        }else {
             ou.println(ex.getMessage());
             ex.printStackTrace();
             // TODO: extend this

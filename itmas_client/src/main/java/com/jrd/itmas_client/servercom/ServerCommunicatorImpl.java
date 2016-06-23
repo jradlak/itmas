@@ -54,7 +54,6 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
     @Override
     public void userAdd(UserDTO userDTO) throws ServerCommunicationException {
         authenticate();
-
         HttpPost post = getPostMethod("/api/register");
         try {
             StringEntity userEnt = new StringEntity(convertUserDtoToJson(userDTO));
