@@ -1,5 +1,6 @@
 package com.jrd.itmas_client.servercom.dto;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -73,6 +74,14 @@ public class UserDTO {
 
     public Set<String> getAuthorities() {
         return authorities;
+    }
+
+    public void addAuthority(String authority) {
+        if (this.authorities == null) {
+            this.authorities = new HashSet<>();
+        }
+
+        this.authorities.add(authority);
     }
 
     @Override

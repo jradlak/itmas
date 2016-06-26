@@ -1,5 +1,6 @@
 package com.jrd.itmas_client.itegration;
 
+import com.jrd.itmas_client.infrastructure.exceptions.CommandExecutionException;
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 import com.jrd.itmas_client.interpreter.Command;
 import com.jrd.itmas_client.interpreter.CommandExecutor;
@@ -43,16 +44,16 @@ public class MainItmasClientApplicationTest {
     }
 
     @Test
-    public void testRetreiveUserInfoFromServer() throws ServerCommunicationException {
+    public void testRetreiveUserInfoFromServer() throws ServerCommunicationException, CommandExecutionException {
         interpretCommand("user show");
     }
 
     @Test
-    public void testGetExplicitUserInfoFromServer() throws ServerCommunicationException {
+    public void testGetExplicitUserInfoFromServer() throws ServerCommunicationException, CommandExecutionException {
         interpretCommand("user 'user' show");
     }
 
-    private void interpretCommand(String rawCommand) throws ServerCommunicationException {
+    private void interpretCommand(String rawCommand) throws ServerCommunicationException, CommandExecutionException {
         Command command = new Command(rawCommand);
         commandInterpreter.interpret(command);
     }

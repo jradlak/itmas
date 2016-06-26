@@ -2,6 +2,7 @@ package com.jrd.itmas_client.ui;
 
 import com.jrd.itmas_client.infrastructure.exceptions.CommandSyntaxException;
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
+import com.jrd.itmas_client.infrastructure.validation.ValidationResult;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 
 import java.io.PrintStream;
@@ -49,9 +50,13 @@ public class UIHandler {
         printMessage("User INFO:");
         printMessage("-------------------------");
         printMessage("Login:        " + userDTO.getLogin());
-        printMessage("First name:   " + userDTO.getFirstName());
-        printMessage("Last name:    " + userDTO.getLastName());
+        printMessage("First firstName:   " + userDTO.getFirstName());
+        printMessage("Last firstName:    " + userDTO.getLastName());
         printMessage("E-mail:       " + userDTO.getEmail());
         printMessage("Authorities:  " + userDTO.getAuthorities());
+    }
+
+    public void showValidationErrors(List<ValidationResult> results) {
+        results.stream().forEach(r -> printMessage(r.getErrorDescription()));
     }
 }
