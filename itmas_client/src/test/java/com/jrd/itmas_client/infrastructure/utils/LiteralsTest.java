@@ -17,7 +17,7 @@ public class LiteralsTest {
 
         String authenticationEx = Literals.get().getExceptions().getServerCommunicationExceptions().getAuthentication();
         String userGet = Literals.get().getExceptions().getServerCommunicationExceptions().getUserDataGet();
-        String userIterpret = Literals.get().getExceptions().getServerCommunicationExceptions().getGetUserDataInterpret();
+        String userIterpret = Literals.get().getExceptions().getServerCommunicationExceptions().getUserDataInterpretation();
 
         Assert.assertTrue("There is problem with authentication.".equals(authenticationEx));
         Assert.assertTrue("There is problem with get user data from server.".equals(userGet));

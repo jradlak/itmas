@@ -59,6 +59,7 @@ public class MainItmasClientApplicationTest {
     }
 
     private static void prepareDependencies() throws IOException {
+        Literals.prepareYaml("PL");
         configuration = new Configuration(".itmas");
         serverCommunicator = new ServerCommunicator() {
             @Override

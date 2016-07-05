@@ -80,7 +80,12 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             post.setEntity(new UrlEncodedFormEntity(urlParameters));
             client.execute(post);
         } catch (IOException ex) {
-            throw new ServerCommunicationException("There is problem with authentication.", ex);
+            throw new ServerCommunicationException(
+                    Literals
+                    .get()
+                    .getExceptions()
+                    .getServerCommunicationExceptions()
+                    .getAuthentication(), ex);
         }
     }
 
@@ -101,7 +106,13 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             String json = EntityUtils.toString(response.getEntity());
             return json;
         } catch (IOException ex) {
-            throw new ServerCommunicationException("There is problem with get user data from server.", ex);
+            throw new ServerCommunicationException(
+                    Literals
+                    .get()
+                    .getExceptions()
+                    .getServerCommunicationExceptions()
+                    .getUserDataGet()
+                    , ex);
         }
     }
 
@@ -111,7 +122,12 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             UserDTO userDTO = mapper.readValue(json, UserDTO.class);
             return userDTO;
         } catch (IOException ex) {
-            throw new ServerCommunicationException("There is problem with interpretation of user data from server.", ex);
+            throw new ServerCommunicationException(
+                    Literals
+                    .get()
+                    .getExceptions()
+                    .getServerCommunicationExceptions()
+                    .getUserDataInterpretation(), ex);
         }
     }
 
@@ -121,7 +137,12 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             String json = mapper.writeValueAsString(userDTO);
             return  json;
         } catch (IOException e) {
-            throw new ServerCommunicationException("There is problem with converting user data to json", e);
+            throw new ServerCommunicationException(
+                    Literals
+                            .get()
+                            .getExceptions()
+                            .getServerCommunicationExceptions()
+                            .getUserDataConversion(), e);
         }
     }
 

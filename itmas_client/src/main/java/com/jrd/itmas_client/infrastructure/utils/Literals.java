@@ -69,7 +69,9 @@ public class Literals {
 
             private String userDataGet;
 
-            private String getUserDataInterpret;
+            private String userDataInterpretation;
+
+            private String userDataConversion;
 
             public String getAuthentication() {
                 return authentication;
@@ -87,12 +89,20 @@ public class Literals {
                 this.userDataGet = userDataGet;
             }
 
-            public String getGetUserDataInterpret() {
-                return getUserDataInterpret;
+            public String getUserDataInterpretation() {
+                return userDataInterpretation;
             }
 
-            public void setGetUserDataInterpret(String getUserDataInterpret) {
-                this.getUserDataInterpret = getUserDataInterpret;
+            public void setUserDataInterpretation(String userDataInterpretation) {
+                this.userDataInterpretation = userDataInterpretation;
+            }
+
+            public String getUserDataConversion() {
+                return userDataConversion;
+            }
+
+            public void setUserDataConversion(String userDataConversion) {
+                this.userDataConversion = userDataConversion;
             }
         }
     }

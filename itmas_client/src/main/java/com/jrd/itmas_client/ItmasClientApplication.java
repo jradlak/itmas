@@ -33,6 +33,7 @@ public class ItmasClientApplication {
 
     public static void main(String[] args) {
         try {
+            Literals.prepareYaml("PL");
             prepareDependencies();
             checkCommanLine(args);
             String rawCommand = RawCommandGenerator.generateRawCommand(args);
