@@ -24,7 +24,7 @@ public class UserDataValidatorTest {
     }
 
     @Test
-    public void shouldValidateCorrectLine() {
+    public void shouldValidateCorrectLines() {
         ValidationResult result = validator.validateUserDataLine(lines[0]);
         Assert.assertTrue(result.isCorrent());
     }

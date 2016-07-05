@@ -50,8 +50,8 @@ public class UIHandler {
         printMessage("User INFO:");
         printMessage("-------------------------");
         printMessage("Login:        " + userDTO.getLogin());
-        printMessage("First firstName:   " + userDTO.getFirstName());
-        printMessage("Last firstName:    " + userDTO.getLastName());
+        printMessage("First Name:   " + userDTO.getFirstName());
+        printMessage("Last Name:    " + userDTO.getLastName());
         printMessage("E-mail:       " + userDTO.getEmail());
         printMessage("Authorities:  " + userDTO.getAuthorities());
     }

@@ -2,7 +2,7 @@ package com.jrd.itmas_client.interpreter;
 
 import com.jrd.itmas_client.infrastructure.exceptions.CommandExecutionException;
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
-import com.jrd.itmas_client.infrastructure.utils.FileReader;
+import com.jrd.itmas_client.infrastructure.utils.UserDataFileReader;
 import com.jrd.itmas_client.infrastructure.validation.UserDataValidator;
 import com.jrd.itmas_client.infrastructure.validation.ValidationResult;
 import com.jrd.itmas_client.servercom.ServerCommunicator;
@@ -56,7 +56,7 @@ public class CommandExecutor {
     }
 
     private Optional<UserDTO> getNewUserInfo(String userLogin, String fileName) throws CommandExecutionException, IOException {
-        List<String[]> userData = FileReader.readUserData(fileName);
+        List<String[]> userData = UserDataFileReader.readUserData(fileName);
 
         List<ValidationResult> validationErrors =
                 userData

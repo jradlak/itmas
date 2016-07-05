@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * Created by jakub on 23.06.16.
  */
-public class FileReader {
+public class UserDataFileReader {
     public static List<String[]> readUserData(String fileName) throws IOException {
         try (Stream<String> lines = Files.lines(Paths.get(fileName))) {
             return lines
