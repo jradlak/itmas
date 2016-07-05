@@ -101,7 +101,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             String json = EntityUtils.toString(response.getEntity());
             return json;
         } catch (IOException ex) {
-            throw new ServerCommunicationException("There is problem with get user data from server", ex);
+            throw new ServerCommunicationException("There is problem with get user data from server.", ex);
         }
     }
 
@@ -111,7 +111,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             UserDTO userDTO = mapper.readValue(json, UserDTO.class);
             return userDTO;
         } catch (IOException ex) {
-            throw new ServerCommunicationException("There is problem with interpret user data from server", ex);
+            throw new ServerCommunicationException("There is problem with interpretation of user data from server.", ex);
         }
     }
 

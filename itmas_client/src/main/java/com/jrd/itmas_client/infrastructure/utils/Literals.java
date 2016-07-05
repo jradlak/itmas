@@ -53,15 +53,8 @@ public class Literals {
         this.exceptions = exceptions;
     }
 
-    public class Exceptions {
+    public static class Exceptions {
         private ServerCommunicationExceptions serverCommunicationExceptions;
-
-        public Exceptions() {
-        }
-
-        public Exceptions(ServerCommunicationExceptions serverCommunicationExceptions) {
-            this.serverCommunicationExceptions = serverCommunicationExceptions;
-        }
 
         public ServerCommunicationExceptions getServerCommunicationExceptions() {
             return serverCommunicationExceptions;
@@ -71,21 +64,12 @@ public class Literals {
             this.serverCommunicationExceptions = serverCommunicationExceptions;
         }
 
-        public class ServerCommunicationExceptions {
+        public static class ServerCommunicationExceptions {
             private String authentication;
 
             private String userDataGet;
 
             private String getUserDataInterpret;
-
-            public ServerCommunicationExceptions() {
-            }
-
-            public ServerCommunicationExceptions(String authentication, String userDataGet, String getUserDataInterpret) {
-                this.authentication = authentication;
-                this.userDataGet = userDataGet;
-                this.getUserDataInterpret = getUserDataInterpret;
-            }
 
             public String getAuthentication() {
                 return authentication;

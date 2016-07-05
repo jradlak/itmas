@@ -1,2 +1,6 @@
-Excepions:
-  SerververCommunicationExceptions:
+exceptions:
+  serverCommunicationExceptions:
+    authentication: There is problem with authentication.
+    userDataGet: There is problem with get user data from server.
+    getUserDataInterpret: There is problem with interpretation of user data from server.
+
