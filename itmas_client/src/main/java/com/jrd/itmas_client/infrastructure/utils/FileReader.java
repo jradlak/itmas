@@ -13,7 +13,9 @@ import java.util.stream.Stream;
 public class FileReader {
     public static List<String[]> readUserData(String fileName) throws IOException {
         try (Stream<String> lines = Files.lines(Paths.get(fileName))) {
-            return lines.map(s -> s.split(":"))
+            return lines
+                    .map(s -> s.split(":"))
+                    .map(s -> new String[] {s[0].trim(), s[1].trim()})
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw e;

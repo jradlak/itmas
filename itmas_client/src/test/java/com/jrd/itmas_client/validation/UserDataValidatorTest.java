@@ -14,8 +14,8 @@ public class UserDataValidatorTest {
     private UserDataValidator validator;
 
     private String[][] lines = {
-            {"firstName", "Jakub"},
-            {"lastName", "Radlak"}
+            {"First Name", "Jakub"},
+            {"Last Name", "Radlak"}
     };
 
     @Before
