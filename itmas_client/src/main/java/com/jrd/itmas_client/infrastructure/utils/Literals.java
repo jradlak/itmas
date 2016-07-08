@@ -1,7 +1,5 @@
 package com.jrd.itmas_client.infrastructure.utils;
 
-
-
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
 
@@ -69,6 +67,8 @@ public class Literals {
 
         private CommandExecutionExceptions commandExecutionExceptions;
 
+        private CommandSyntaxExceptions commandSyntaxExceptions;
+
         public ServerCommunicationExceptions getServerCommunicationExceptions() {
             return serverCommunicationExceptions;
         }
@@ -85,6 +85,14 @@ public class Literals {
             this.commandExecutionExceptions = commandExecutionExceptions;
         }
 
+        public CommandSyntaxExceptions getCommandSyntaxExceptions() {
+            return commandSyntaxExceptions;
+        }
+
+        public void setCommandSyntaxExceptions(CommandSyntaxExceptions commandSyntaxExceptions) {
+            this.commandSyntaxExceptions = commandSyntaxExceptions;
+        }
+
         public static class ServerCommunicationExceptions {
             private String authentication;
 
@@ -93,6 +101,8 @@ public class Literals {
             private String userDataInterpretation;
 
             private String userDataConversion;
+
+            private String deleteUser;
 
             public String getAuthentication() {
                 return authentication;
@@ -125,6 +135,14 @@ public class Literals {
             public void setUserDataConversion(String userDataConversion) {
                 this.userDataConversion = userDataConversion;
             }
+
+            public String getDeleteUser() {
+                return deleteUser;
+            }
+
+            public void setDeleteUser(String deleteUser) {
+                this.deleteUser = deleteUser;
+            }
         }
 
         public static class CommandExecutionExceptions {
@@ -136,6 +154,18 @@ public class Literals {
 
             public void setErrorReadingFile(String errorReadingFile) {
                 this.errorReadingFile = errorReadingFile;
+            }
+        }
+
+        public static class CommandSyntaxExceptions {
+            private String noArguments;
+
+            public String getNoArguments() {
+                return noArguments;
+            }
+
+            public void setNoArguments(String noArguments) {
+                this.noArguments = noArguments;
             }
         }
     }

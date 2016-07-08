@@ -60,7 +60,7 @@ public class AccountResource {
     @RequestMapping(value = "/register",
             method = RequestMethod.POST,
             produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
+    public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO) {
         return userRepository.findOneByLogin(userDTO.getLogin())
                 .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
                         .orElseGet(() -> {
@@ -69,6 +69,14 @@ public class AccountResource {
                             log.info("User created = " + user.toString());
                             return new ResponseEntity<>(HttpStatus.CREATED);
                         });
+    }
+
+    @RequestMapping(value = "/deleteAccount/{login:[_'.@a-z0-9-]+}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void deleteAccount(@PathVariable String login) {
+        User user = userRepository.findOneByLogin(login).get();
+        userRepository.delete(user);
     }
 
     private ResponseEntity<UserDTO> prepareUserDTOResponseEntity(User userFromDB) {

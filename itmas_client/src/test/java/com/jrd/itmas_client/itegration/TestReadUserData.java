@@ -4,6 +4,7 @@ import com.jrd.itmas_client.infrastructure.exceptions.CommandExecutionException;
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 import com.jrd.itmas_client.infrastructure.utils.UserDataFileReader;
 import com.jrd.itmas_client.infrastructure.validation.UserDataValidator;
+import com.jrd.itmas_client.infrastructure.validation.ValidationResult;
 import com.jrd.itmas_client.interpreter.CommandExecutor;
 import com.jrd.itmas_client.servercom.ServerCommunicator;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
@@ -39,6 +40,10 @@ public class TestReadUserData {
             public UserDTO userAdd(UserDTO userDTO) throws ServerCommunicationException {
                 return userDTO;
             }
+
+            @Override
+            public void deleteUser(String userLogin) throws ServerCommunicationException {
+            }
         };
 
         this.commandExecutor = new CommandExecutor(serverCommunicator, new UIHandler());
@@ -47,13 +52,12 @@ public class TestReadUserData {
     @Test
     public void validateUserDtoTest() throws IOException {
         List<String[]> userData = UserDataFileReader.readUserData(fileName);
-        boolean result = userData.stream().map(l -> validator.validateUserDataLine(l)).allMatch(v -> v.isCorrent());
+        boolean result = userData.stream().map(l -> validator.validateUserDataLine(l)).allMatch(ValidationResult::isCorrent);
         Assert.assertTrue(result == true);
     }
 
     @Test
     public void createUserTest() throws IOException, CommandExecutionException, ServerCommunicationException {
-        List<String[]> userData = UserDataFileReader.readUserData(fileName);
         UserDTO userAdded = commandExecutor.addUser("", fileName);
 
         Assert.assertTrue("Jakub".equals(userAdded.getFirstName()));

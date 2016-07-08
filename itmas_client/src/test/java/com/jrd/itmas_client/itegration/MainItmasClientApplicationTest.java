@@ -75,6 +75,10 @@ public class MainItmasClientApplicationTest {
             public UserDTO userAdd(UserDTO userDTO) throws ServerCommunicationException {
                 return userDTO;
             }
+
+            @Override
+            public void deleteUser(String userLogin) throws ServerCommunicationException {
+            }
         };
 
         uiHandler = new UIHandler();

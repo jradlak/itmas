@@ -77,6 +77,19 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
         return user;
     }
 
+    @Override
+    public void deleteUser(String userLogin) throws ServerCommunicationException {
+        authenticate();
+        String queryString = serverAddress + "/api/deleteAccount/" + userLogin;
+
+        HttpGet get = new HttpGet(queryString);
+        try {
+            HttpResponse response = client.execute(get);
+        } catch (IOException ex) {
+            throw new ServerCommunicationException(exceptionLiterals.getDeleteUser(), ex);
+        }
+    }
+
     private void authenticate() throws ServerCommunicationException {
         HttpPost post = getPostMethod("/api/authentication");
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();

@@ -55,7 +55,7 @@ public class ItmasClientApplication {
     private static void checkCommanLine(String[] args) throws Exception {
         log.info(Arrays.toString(args));
         if (args.length == 0) {
-            throw new CommandSyntaxException("There is no arguments. To get help please tape: itmas -help");
+            throw new CommandSyntaxException(Literals.get().getExceptions().getCommandSyntaxExceptions().getNoArguments());
         }
     }
 }
