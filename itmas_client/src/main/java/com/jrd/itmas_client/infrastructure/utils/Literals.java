@@ -37,13 +37,7 @@ public class Literals {
 
     private Exceptions exceptions;
 
-
-    public Literals() {
-    }
-
-    public Literals(Exceptions exceptions) {
-        this.exceptions = exceptions;
-    }
+    private Validation validation;
 
     public Exceptions getExceptions() {
         return exceptions;
@@ -53,8 +47,27 @@ public class Literals {
         this.exceptions = exceptions;
     }
 
+    public Validation getValidation() {
+        return validation;
+    }
+
+    public void setValidation(Validation validation) {
+        this.validation = validation;
+    }
+
+    public static Literals getLiterals() {
+        return literals;
+    }
+
+    public static void setLiterals(Literals literals) {
+        Literals.literals = literals;
+    }
+
     public static class Exceptions {
+
         private ServerCommunicationExceptions serverCommunicationExceptions;
+
+        private CommandExecutionExceptions commandExecutionExceptions;
 
         public ServerCommunicationExceptions getServerCommunicationExceptions() {
             return serverCommunicationExceptions;
@@ -62,6 +75,14 @@ public class Literals {
 
         public void setServerCommunicationExceptions(ServerCommunicationExceptions serverCommunicationExceptions) {
             this.serverCommunicationExceptions = serverCommunicationExceptions;
+        }
+
+        public CommandExecutionExceptions getCommandExecutionExceptions() {
+            return commandExecutionExceptions;
+        }
+
+        public void setCommandExecutionExceptions(CommandExecutionExceptions commandExecutionExceptions) {
+            this.commandExecutionExceptions = commandExecutionExceptions;
         }
 
         public static class ServerCommunicationExceptions {
@@ -103,6 +124,64 @@ public class Literals {
 
             public void setUserDataConversion(String userDataConversion) {
                 this.userDataConversion = userDataConversion;
+            }
+        }
+
+        public static class CommandExecutionExceptions {
+            private String errorReadingFile;
+
+            public String getErrorReadingFile() {
+                return errorReadingFile;
+            }
+
+            public void setErrorReadingFile(String errorReadingFile) {
+                this.errorReadingFile = errorReadingFile;
+            }
+        }
+    }
+
+    public static class Validation {
+
+        private UserDataValidation userDataValidation;
+
+        public UserDataValidation getUserDataValidation() {
+            return userDataValidation;
+        }
+
+        public void setUserDataValidation(UserDataValidation userDataValidation) {
+            this.userDataValidation = userDataValidation;
+        }
+
+        public static class UserDataValidation {
+
+            private String wordDoesNotMatch;
+
+            private String lineCorrect;
+
+            private String cannotRecognize;
+
+            public String getWordDoesNotMatch() {
+                return wordDoesNotMatch;
+            }
+
+            public void setWordDoesNotMatch(String wordDoesNotMatch) {
+                this.wordDoesNotMatch = wordDoesNotMatch;
+            }
+
+            public String getLineCorrect() {
+                return lineCorrect;
+            }
+
+            public void setLineCorrect(String lineCorrect) {
+                this.lineCorrect = lineCorrect;
+            }
+
+            public String getCannotRecognize() {
+                return cannotRecognize;
+            }
+
+            public void setCannotRecognize(String cannotRecognize) {
+                this.cannotRecognize = cannotRecognize;
             }
         }
     }

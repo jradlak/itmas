@@ -1,5 +1,7 @@
 package com.jrd.itmas_client.infrastructure.validation;
 
+import com.jrd.itmas_client.infrastructure.utils.Literals;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,12 +55,21 @@ public class UserDataValidator {
         if (patterns.containsKey(line[0])) {
             Pattern pattern = Pattern.compile(patterns.get(line[0]));
             if (!pattern.matcher(line[1]).matches()) {
-                return new ValidationResult(false, "Word " + line[1] + "does not match requirements for " + line[0]);
+                return new ValidationResult(false,
+                        Literals.get().getValidation().getUserDataValidation()
+                                .getWordDoesNotMatch()
+                                .replace("@w1", line[1]).replace("@w2", line[0]));
             }
 
-            return new ValidationResult(true, "Line " + line[0] + ": " + line[1] + " is correct.");
+            return new ValidationResult(true,
+                    Literals.get().getValidation().getUserDataValidation()
+                            .getLineCorrect()
+                            .replace("@w1", line[0]). replace("@w2", line[1]));
         } else {
-            return new ValidationResult(false, "Can not recognize word " + line[0]);
+            return new ValidationResult(false,
+                    Literals.get().getValidation().getUserDataValidation()
+                            .getCannotRecognize()
+                            .replace("@w1", line[0]));
         }
     }
 }

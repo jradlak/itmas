@@ -4,4 +4,11 @@ exceptions:
     userDataGet: There is problem with get user data from server.
     userDataInterpretation: There is problem with interpretation of user data from server.
     userDataConversion: There is problem with converting user data to json.
+  commandExecutionExceptions:
+    errorReadingFile: Error while reading user data file.
 
+validation:
+  userDataValidation:
+    wordDoesNotMatch: Word @w1 does not match requirements for @w2
+    lineCorrect: Line (@w1, w2) is correct.
+    cannotRecognize: Can not recognize word @w1

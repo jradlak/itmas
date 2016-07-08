@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Kuba on 2016-05-29.
  */
@@ -33,6 +34,9 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
     private HttpClient client;
 
     private String serverAddress;
+
+    private final static Literals.Exceptions.ServerCommunicationExceptions exceptionLiterals
+            = Literals.get().getExceptions().getServerCommunicationExceptions();
 
     public ServerCommunicatorImpl(Configuration configuration) {
         client = HttpClientBuilder.create().build();
@@ -80,12 +84,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             post.setEntity(new UrlEncodedFormEntity(urlParameters));
             client.execute(post);
         } catch (IOException ex) {
-            throw new ServerCommunicationException(
-                    Literals
-                    .get()
-                    .getExceptions()
-                    .getServerCommunicationExceptions()
-                    .getAuthentication(), ex);
+            throw new ServerCommunicationException(exceptionLiterals.getAuthentication(), ex);
         }
     }
 
@@ -106,13 +105,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             String json = EntityUtils.toString(response.getEntity());
             return json;
         } catch (IOException ex) {
-            throw new ServerCommunicationException(
-                    Literals
-                    .get()
-                    .getExceptions()
-                    .getServerCommunicationExceptions()
-                    .getUserDataGet()
-                    , ex);
+            throw new ServerCommunicationException(exceptionLiterals.getUserDataGet(), ex);
         }
     }
 
@@ -122,12 +115,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             UserDTO userDTO = mapper.readValue(json, UserDTO.class);
             return userDTO;
         } catch (IOException ex) {
-            throw new ServerCommunicationException(
-                    Literals
-                    .get()
-                    .getExceptions()
-                    .getServerCommunicationExceptions()
-                    .getUserDataInterpretation(), ex);
+            throw new ServerCommunicationException(exceptionLiterals.getUserDataInterpretation(), ex);
         }
     }
 
@@ -137,12 +125,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             String json = mapper.writeValueAsString(userDTO);
             return  json;
         } catch (IOException e) {
-            throw new ServerCommunicationException(
-                    Literals
-                            .get()
-                            .getExceptions()
-                            .getServerCommunicationExceptions()
-                            .getUserDataConversion(), e);
+            throw new ServerCommunicationException(exceptionLiterals.getUserDataConversion(), e);
         }
     }
 

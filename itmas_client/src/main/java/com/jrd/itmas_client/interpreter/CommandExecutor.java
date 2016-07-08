@@ -2,6 +2,7 @@ package com.jrd.itmas_client.interpreter;
 
 import com.jrd.itmas_client.infrastructure.exceptions.CommandExecutionException;
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
+import com.jrd.itmas_client.infrastructure.utils.Literals;
 import com.jrd.itmas_client.infrastructure.utils.UserDataFileReader;
 import com.jrd.itmas_client.infrastructure.validation.UserDataValidator;
 import com.jrd.itmas_client.infrastructure.validation.ValidationResult;
@@ -27,6 +28,9 @@ public class CommandExecutor {
 
     private UserDataValidator validator;
 
+    private final Literals.Exceptions.CommandExecutionExceptions commandExceptions
+            = Literals.get().getExceptions().getCommandExecutionExceptions();
+
     public CommandExecutor(ServerCommunicator serverCommunicator, UIHandler uiHandler) {
         this.serverCommunicator = serverCommunicator;
         this.uiHandler = uiHandler;
@@ -51,7 +55,7 @@ public class CommandExecutor {
                 serverCommunicator.userAdd(userDTO.get());
             }
         } catch (IOException e) {
-            throw new CommandExecutionException("Error when reading user data file. " + e.getMessage(), e);
+            throw new CommandExecutionException(commandExceptions.getErrorReadingFile() + e.getMessage(), e);
         }
     }
 
