@@ -14,23 +14,24 @@ public class UserDataValidator {
 
     private final static String wPattern = "\\w+";
 
-    private final static String emailPattern = "\\b[A-Z0-9._%-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b";
+    private final static String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                                                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     private final static String passwordPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
 
     private final static String rolePattern = "ROLE USER|ROLE ADMIN";
 
-    public static final String login = "login";
+    public static final String login = "Login";
 
     public static final String firstName = "First Name";
 
     public static final String lastName = "Last Name";
 
-    public static final String email = "e-mail";
+    public static final String email = "E-mail";
 
-    public static final String role = "role";
+    public static final String role = "Role";
 
-    public static final String password = "password";
+    public static final String password = "Password";
 
     public static final String roleAdmin = "ROLE ADMIN";
 

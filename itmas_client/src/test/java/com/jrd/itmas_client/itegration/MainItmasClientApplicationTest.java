@@ -72,8 +72,8 @@ public class MainItmasClientApplicationTest {
             }
 
             @Override
-            public void userAdd(UserDTO userDTO) throws ServerCommunicationException {
-
+            public UserDTO userAdd(UserDTO userDTO) throws ServerCommunicationException {
+                return userDTO;
             }
         };
 

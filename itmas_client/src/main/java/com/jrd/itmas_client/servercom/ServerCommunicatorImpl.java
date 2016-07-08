@@ -56,7 +56,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
     }
 
     @Override
-    public void userAdd(UserDTO userDTO) throws ServerCommunicationException {
+    public UserDTO userAdd(UserDTO userDTO) throws ServerCommunicationException {
         authenticate();
         HttpPost post = getPostMethod("/api/register");
         try {
@@ -64,14 +64,17 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             post.setEntity(userEnt);
             client.execute(post);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            throw new ServerCommunicationException("error 1", e);  //TODO: add description
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            throw new ServerCommunicationException("error 2", e);  //TODO: add description
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ServerCommunicationException("error 3", e);  //TODO: add description
         }
 
+        UserDTO user = getUserDataFromServer(userDTO.getLogin());
         logout();
+
+        return user;
     }
 
     private void authenticate() throws ServerCommunicationException {

@@ -11,5 +11,5 @@ import java.io.UnsupportedEncodingException;
  */
 public interface ServerCommunicator {
     UserDTO getUserDataFromServer(String userLogin) throws ServerCommunicationException;
-    void userAdd(UserDTO userDTO) throws ServerCommunicationException;
+    UserDTO userAdd(UserDTO userDTO) throws ServerCommunicationException;
 }

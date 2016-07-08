@@ -42,20 +42,20 @@ public class CommandExecutor {
         uiHandler.printUserData(userDTO);
     }
 
-    public void addUser(String userLogin) throws ServerCommunicationException {
+    public UserDTO addUser(String userLogin) throws ServerCommunicationException {
         UserDTO userDTO = getNewUserInfo(userLogin);
-        serverCommunicator.userAdd(userDTO);
+        return serverCommunicator.userAdd(userDTO);
     }
 
-    public void addUser(String userLogin, String fileName) throws CommandExecutionException, ServerCommunicationException {
+    public UserDTO addUser(String userLogin, String fileName) throws CommandExecutionException, ServerCommunicationException {
         Optional<UserDTO> userDTO;
         try {
             userDTO = getNewUserInfo(userLogin, fileName);
-            if (userDTO.isPresent()) {
-                serverCommunicator.userAdd(userDTO.get());
-            }
+            return serverCommunicator.userAdd(userDTO.get());
         } catch (IOException e) {
             throw new CommandExecutionException(commandExceptions.getErrorReadingFile() + e.getMessage(), e);
+        } catch (CommandExecutionException ex) {
+            throw ex;
         }
     }
 
@@ -91,6 +91,7 @@ public class CommandExecutor {
         userDTO.setLogin(mUserData.get(UserDataValidator.login));
         userDTO.setEmail(mUserData.get(UserDataValidator.email));
         userDTO.addAuthority(mUserData.get(UserDataValidator.role));
+        userDTO.setPassword(mUserData.get(UserDataValidator.password));
         return Optional.of(userDTO);
     }
 
