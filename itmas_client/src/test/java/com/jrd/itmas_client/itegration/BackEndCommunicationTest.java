@@ -3,18 +3,18 @@ package com.jrd.itmas_client.itegration;
 import com.jrd.itmas_client.infrastructure.exceptions.CommandExecutionException;
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 import com.jrd.itmas_client.infrastructure.utils.Configuration;
-import com.jrd.itmas_client.infrastructure.utils.UserDataFileReader;
 import com.jrd.itmas_client.infrastructure.validation.UserDataValidator;
 import com.jrd.itmas_client.interpreter.CommandExecutor;
 import com.jrd.itmas_client.servercom.ServerCommunicator;
 import com.jrd.itmas_client.servercom.ServerCommunicatorImpl;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.ui.UIHandler;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Kuba on 2016-07-08.
@@ -38,11 +38,18 @@ public class BackEndCommunicationTest {
     }
 
     @Test
+    @Ignore
+    public void getUserFromServerTest() throws ServerCommunicationException {
+        UserDTO user = commandExecutor.showUser("user");
+        Assert.assertTrue(user != null);
+    }
+
+    @Test
+    @Ignore
     public void sendCreatedUserToServer() throws CommandExecutionException, ServerCommunicationException, IOException {
-        UserDTO user= commandExecutor.addUser("", fileName);
-
-        serverCommunicator.userAdd(user);
-
-        //serverCommunicator.deleteUser(user.getLogin());
+        UserDTO user = commandExecutor.addUser("", fileName);
+        serverCommunicator.deleteUser(user.getLogin());
+        Assert.assertTrue(user != null);
+        Assert.assertTrue("jradlak".equals(user.getLogin()));
     }
 }

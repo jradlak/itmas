@@ -37,9 +37,10 @@ public class CommandExecutor {
         this.validator = new UserDataValidator();
     }
 
-    public void showUser(String userLogin) throws ServerCommunicationException {
+    public UserDTO showUser(String userLogin) throws ServerCommunicationException {
         UserDTO userDTO = serverCommunicator.getUserDataFromServer(userLogin);
         uiHandler.printUserData(userDTO);
+        return userDTO;
     }
 
     public UserDTO addUser(String userLogin) throws ServerCommunicationException {

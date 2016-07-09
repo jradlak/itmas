@@ -1,6 +1,5 @@
 package com.jrd.itmas_client.servercom;
 
-
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.infrastructure.utils.*;
@@ -22,7 +21,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Created by Kuba on 2016-05-29.
@@ -47,7 +45,6 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
     @Override
     public UserDTO getUserDataFromServer(String userLogin) throws ServerCommunicationException {
         authenticate();
-
         String json = retreiveUserJson(userLogin);
         UserDTO userDTO = convertUserJsonToDto(json);
 
@@ -58,7 +55,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
     @Override
     public UserDTO userAdd(UserDTO userDTO) throws ServerCommunicationException {
         authenticate();
-        HttpPost post = getPostMethod("/api/register");
+        HttpPost post = getPostMethod("/api/register", "application/json");
         try {
             StringEntity userEnt = new StringEntity(convertUserDtoToJson(userDTO));
             post.setEntity(userEnt);
@@ -91,13 +88,13 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
     }
 
     private void authenticate() throws ServerCommunicationException {
-        HttpPost post = getPostMethod("/api/authentication");
+        HttpPost post = getPostMethod("/api/authentication", "application/x-www-form-urlencoded");
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
         urlParameters.add(new BasicNameValuePair("username", configuration.getProperty(Configuration.Keys.USER)));
         urlParameters.add(new BasicNameValuePair("password", configuration.getProperty(Configuration.Keys.PASSWORD)));
 
         try {
-            post.setEntity(new UrlEncodedFormEntity(urlParameters));
+            post.setEntity(new UrlEncodedFormEntity(urlParameters, "UTF-8"));
             client.execute(post);
         } catch (IOException ex) {
             throw new ServerCommunicationException(exceptionLiterals.getAuthentication(), ex);
@@ -145,9 +142,10 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
         }
     }
 
-    private HttpPost getPostMethod(String url) {
+    private HttpPost getPostMethod(String url, String header) {
         HttpPost post = new HttpPost(serverAddress + url);
-        post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        post.setHeader("Content-Type", header);
+
         return post;
     }
 }
