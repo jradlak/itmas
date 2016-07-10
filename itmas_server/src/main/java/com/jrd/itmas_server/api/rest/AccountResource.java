@@ -75,8 +75,7 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteAccount(@PathVariable String login) {
-        User user = userRepository.findOneByLogin(login).get();
-        userRepository.delete(user);
+       userService.deactivateUser(login);
     }
 
     private ResponseEntity<UserDTO> prepareUserDTOResponseEntity(User userFromDB) {

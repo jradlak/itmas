@@ -31,11 +31,11 @@ public class MainItmasClientApplicationTest {
     private static CommandInterpreter commandInterpreter;
 
     private final static UserDTO adminDTO = new UserDTO(
-            "admin", "adminPass", "adminFirstName", "adminLastName", "adminEmail", new LinkedHashSet<>()
+            "admin", "adminPass", "adminFirstName", "adminLastName", "adminEmail", new LinkedHashSet<>(), true
     );
 
     private final static UserDTO userDTO = new UserDTO(
-            "user", "userPass", "userFirstName", "userLastName", "userEmail", new LinkedHashSet<>()
+            "user", "userPass", "userFirstName", "userLastName", "userEmail", new LinkedHashSet<>(), true
     );
 
     @Before

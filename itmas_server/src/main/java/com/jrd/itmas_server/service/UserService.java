@@ -1,5 +1,6 @@
 package com.jrd.itmas_server.service;
 
+import com.jrd.itmas_server.api.rest.dto.UserDTO;
 import com.jrd.itmas_server.domain.Authority;
 import com.jrd.itmas_server.domain.User;
 import com.jrd.itmas_server.repository.AuthorityRepository;
@@ -58,6 +59,7 @@ public class UserService {
         return user;
     }
 
+
     public User createUserInformation(String login, String password, String firstName, String lastName, String email) {
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
@@ -70,8 +72,17 @@ public class UserService {
         newUser.setEmail(email);
         authorities.add(authority);
         newUser.setAuthorities(authorities);
+        newUser.setActive(true);
         userRepository.saveAndFlush(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
+
+    public UserDTO deactivateUser(String login) {
+        User user = userRepository.findOneByLogin(login).get();
+        user.setActive(false);
+        userRepository.saveAndFlush(user);
+        return new UserDTO(user);
+    }
+
 }

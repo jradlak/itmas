@@ -19,15 +19,12 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="login" type="varchar(50)">
-                <constraints unique="true" nullable="false"/>
-            </column>
+            <column name="login" type="varchar(50)"/>
             <column name="password_hash" type="varchar(60)"/>
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>
-            <column name="email" type="varchar(100)">
-                <constraints unique="true"/>
-            </column>
+            <column name="email" type="varchar(100)"/>
+            <column name="active" type="boolean"/>
         </createTable>
 
         <createTable tableName="jrd_authority">

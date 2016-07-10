@@ -25,7 +25,7 @@ public class User {
     @NotNull
     @Pattern(regexp = "^[a-z0-9]*$|(anonymousUser)")
     @Size(min = 1, max = 50)
-    @Column(length = 50, unique = true, nullable = false)
+    @Column(length = 50, nullable = false)
     private String login;
 
     @JsonIgnore
@@ -44,8 +44,11 @@ public class User {
 
     @Email
     @Size(max = 100)
-    @Column(length = 100, unique = true)
+    @Column(length = 100)
     private String email;
+
+    @NotNull
+    private Boolean active;
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -108,5 +111,21 @@ public class User {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

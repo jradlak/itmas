@@ -20,16 +20,19 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private Boolean active;
+
     public UserDTO() {}
 
     public UserDTO(String login, String password, String firstName,
-                   String lastName, String email, Set<String> authorities) {
+                   String lastName, String email, Set<String> authorities, Boolean active) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.authorities = authorities;
+        this.active = active;
     }
 
     public String getLogin() {
@@ -76,6 +79,14 @@ public class UserDTO {
         return authorities;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     public void addAuthority(String authority) {
         if (this.authorities == null) {
             this.authorities = new HashSet<>();
@@ -93,6 +104,7 @@ public class UserDTO {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", authorities=" + authorities +
+                ", active=" + active +
                 '}';
     }
 }

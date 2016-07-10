@@ -38,23 +38,26 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private Boolean active;
+
     public UserDTO() {}
 
     public UserDTO(User user) {
         this(user.getLogin(), user.getPassword(), user.getFirstName(),
                 user.getLastName(), user.getEmail(),
                 user.getAuthorities().stream().map(Authority::getName)
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet()), user.isActive());
     }
 
     public UserDTO(String login, String password, String firstName,
-                   String lastName, String email,Set<String> authorities) {
+                   String lastName, String email,Set<String> authorities, Boolean active) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.authorities = authorities;
+        this.active = active;
     }
 
     public static int getPasswordMinLength() {
@@ -107,5 +110,13 @@ public class UserDTO {
 
     public Set<String> getAuthorities() {
         return authorities;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
