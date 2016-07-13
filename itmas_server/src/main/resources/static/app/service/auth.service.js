@@ -11,12 +11,12 @@ angular.module('itmas_server')
                          'Content-Type': 'application/x-www-form-urlencoded'
                      }
                  }).success(function (response) {
-                     Principal.identity(true);
+                     Principal.identity(true);                     
                      return response;
                  });
             },
             authorize: function(force) {
-                return Principal.identity(force)
+                return Principal.identity(force)                
                     .then(function() {
                         var isAuthenticated = Principal.isAuthenticated();
 

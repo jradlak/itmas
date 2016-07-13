@@ -12,6 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by jakub on 07.05.16.
  */
@@ -44,11 +48,23 @@ public class UserServiceTest {
         authorityRepository = mock(AuthorityRepository.class);
 
         when(authorityRepository.findOne("ROLE_USER")).thenReturn(userAuthority);
-
+        when(userRepository.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new User[] {
+            new User("test1", "pass1"), new User("test2", "pass2") })));
+        
         userService = new UserService();
         userService.setPasswordEncoder(passwordEncoder);
         userService.setUserRepository(userRepository);
         userService.setAuthorityRepository(authorityRepository);
+    }
+    
+    @Test
+    public void getAllUsersTest() {
+    	List<User> users = this.userService.getAllUsers();
+
+    	Assert.assertTrue(users.size() > 0);
+        Assert.assertTrue("test1".equals(users.get(0).getLogin()) &&
+                "pass1".equals(users.get(0).getPassword())
+        );
     }
 
     @Test

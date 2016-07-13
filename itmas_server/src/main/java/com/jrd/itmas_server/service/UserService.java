@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -59,6 +60,10 @@ public class UserService {
         return user;
     }
 
+    @Transactional(readOnly = true)
+    public List<User> getAllUsers() {
+    	return userRepository.findAll();
+    }
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email) {
         User newUser = new User();
@@ -84,5 +89,4 @@ public class UserService {
         userRepository.saveAndFlush(user);
         return new UserDTO(user);
     }
-
 }

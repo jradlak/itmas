@@ -2,5 +2,6 @@
 
 angular.module('itmas_server')
     .controller('UsersController', function($scope) {
-        $scope.greeting = 'Users controller is here, yo!';
+        $scope.users = 
+    	$scope.greeting = 'Users controller is here, yo!';
     });

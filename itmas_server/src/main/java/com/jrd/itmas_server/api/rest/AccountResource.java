@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by jakub on 17.04.16.
@@ -22,13 +25,15 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class AccountResource {
+
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
-    @Inject
-    private UserRepository userRepository;
+    private AccountApi accountApi;
 
     @Inject
-    private UserService userService;
+    public void setAccountApi(AccountApi accountApi) {
+        this.accountApi = accountApi;
+    }
 
     /**
      * GET  /authenticate -> check if the user is authenticated, and return its login.
@@ -48,6 +53,12 @@ public class AccountResource {
         log.info("getAccount");
         return prepareUserDTOResponseEntity(userService.getUserWithAuthorities());
     }
+    
+    public ResponseEntity<List<UserDTO>> getAll() {
+    	log.info("getAll");
+    	List<User> users = this.userService.getAllUsers(); 
+    	return this.prepareListUserDTOResponseEntity(users);
+    }
 
     @RequestMapping(value = "/accountByLogin/{login:[_'.@a-z0-9-]+}",
             method = RequestMethod.GET,
@@ -61,14 +72,11 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO) {
-        return userRepository.findOneByLogin(userDTO.getLogin())
+        return accountApi.createUserInformation(userDTO)
                 .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
-                        .orElseGet(() -> {
-                            User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
-                                    userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase());
-                            log.info("User created = " + user.toString());
-                            return new ResponseEntity<>(HttpStatus.CREATED);
-                        });
+                .orElseGet(() -> {
+                    return new ResponseEntity<>(HttpStatus.CREATED);
+                });
     }
 
     @RequestMapping(value = "/deleteAccount/{login:[_'.@a-z0-9-]+}",
@@ -82,5 +90,11 @@ public class AccountResource {
         return Optional.ofNullable(userFromDB)
                 .map(user -> new ResponseEntity<>(new UserDTO(user), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+    
+    private ResponseEntity<List<UserDTO>> prepareListUserDTOResponseEntity(List<User> users) {
+    	List<UserDTO> result = users.stream()
+    	    	.map(u -> new UserDTO(u)).collect(Collectors.toList());
+    	return new ResponseEntity<List<UserDTO>>(result, HttpStatus.OK);    	
     }
 }
