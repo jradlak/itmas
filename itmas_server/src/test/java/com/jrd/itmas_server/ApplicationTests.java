@@ -6,9 +6,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.jrd.itmas_server.api.rest.AccountApi;
 import com.jrd.itmas_server.api.rest.AccountResource;
 import com.jrd.itmas_server.repository.UserRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -28,7 +30,9 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Inject;
 
-
+/**
+ * TODO: fix this!
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ItmasServerApplication.class)
 @WebAppConfiguration
@@ -41,7 +45,7 @@ public class ApplicationTests {
 	private RestTemplate template = new TestRestTemplate();
 
     @Inject
-    private UserRepository userRepository;
+    private AccountApi accountApi;
 
     private MockMvc mockMvc;
 
@@ -49,7 +53,7 @@ public class ApplicationTests {
     public void before() {
         MockitoAnnotations.initMocks(this);
         AccountResource accountResource = new AccountResource();
-        ReflectionTestUtils.setField(accountResource, "userRepository", userRepository);
+        ReflectionTestUtils.setField(accountResource, "accountApi", accountApi);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
     }

@@ -1,6 +1,7 @@
 package com.jrd.itmas_server.api;
 
 import com.jrd.itmas_server.ItmasServerApplication;
+import com.jrd.itmas_server.api.rest.AccountApi;
 import com.jrd.itmas_server.api.rest.AccountResource;
 import com.jrd.itmas_server.repository.UserRepository;
 import com.jrd.itmas_server.service.UserService;
@@ -36,10 +37,7 @@ public class AccountResourceTest  {
     private RestTemplate template = new TestRestTemplate();
 
     @Inject
-    private UserRepository userRepository;
-
-    @Inject
-    private UserService userService;
+    private AccountApi accountApi;
 
     private MockMvc mockMvc;
 
@@ -47,8 +45,7 @@ public class AccountResourceTest  {
     public void before() {
         MockitoAnnotations.initMocks(this);
         AccountResource accountResource = new AccountResource();
-        ReflectionTestUtils.setField(accountResource, "userRepository", userRepository);
-        ReflectionTestUtils.setField(accountResource, "userService", userService);
+        ReflectionTestUtils.setField(accountResource, "accountApi", accountApi);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
     }
