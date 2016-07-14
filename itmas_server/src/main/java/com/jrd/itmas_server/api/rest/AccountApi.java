@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by Kuba on 2016-07-13.
@@ -25,6 +27,25 @@ public class AccountApi {
 
     @Inject
     private UserService userService;
+
+    public UserDTO getUserWithAuthorities() {
+        return new UserDTO(userService.getUserWithAuthorities());
+    }
+
+    public UserDTO getUserWithAuthorities(String login) {
+        return new UserDTO(userService.getUserWithAuthorities(login));
+    }
+
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers()
+                .stream()
+                .map(u -> new UserDTO(u))
+                .collect(Collectors.toList());
+    }
+
+    public void deactivateUser(String login) {
+        userService.deactivateUser(login);
+    }
 
     public Optional<UserDTO> createUserInformation(UserDTO userDTO) {
         return userRepository.findOneByLogin(userDTO.getLogin())

@@ -51,13 +51,13 @@ public class AccountResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> getAccount() {
         log.info("getAccount");
-        return prepareUserDTOResponseEntity(userService.getUserWithAuthorities());
+        return prepareUserDTOResponseEntity(accountApi.getUserWithAuthorities());
     }
     
     public ResponseEntity<List<UserDTO>> getAll() {
     	log.info("getAll");
-    	List<User> users = this.userService.getAllUsers(); 
-    	return this.prepareListUserDTOResponseEntity(users);
+    	List<UserDTO> users = accountApi.getAllUsers();
+    	return prepareListUserDTOResponseEntity(users);
     }
 
     @RequestMapping(value = "/accountByLogin/{login:[_'.@a-z0-9-]+}",
@@ -65,7 +65,7 @@ public class AccountResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> getAccountByLogin(@PathVariable String login) {
         log.info("getAccountByLogin, login = " + login);
-        return prepareUserDTOResponseEntity(userService.getUserWithAuthorities(login));
+        return prepareUserDTOResponseEntity(accountApi.getUserWithAuthorities(login));
     }
 
     @RequestMapping(value = "/register",
@@ -83,18 +83,16 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteAccount(@PathVariable String login) {
-       userService.deactivateUser(login);
+       accountApi.deactivateUser(login);
     }
 
-    private ResponseEntity<UserDTO> prepareUserDTOResponseEntity(User userFromDB) {
+    private ResponseEntity<UserDTO> prepareUserDTOResponseEntity(UserDTO userFromDB) {
         return Optional.ofNullable(userFromDB)
-                .map(user -> new ResponseEntity<>(new UserDTO(user), HttpStatus.OK))
+                .map(user -> new ResponseEntity<>(userFromDB, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
     
-    private ResponseEntity<List<UserDTO>> prepareListUserDTOResponseEntity(List<User> users) {
-    	List<UserDTO> result = users.stream()
-    	    	.map(u -> new UserDTO(u)).collect(Collectors.toList());
-    	return new ResponseEntity<List<UserDTO>>(result, HttpStatus.OK);    	
+    private ResponseEntity<List<UserDTO>> prepareListUserDTOResponseEntity(List<UserDTO> users) {
+    	return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
     }
 }
