@@ -11,9 +11,5 @@ angular.module('itmas_server')
                     }
                 }
             }
-        	'getAll' : {
-        		method: 'GET',
-        		url: 'api/account'
-        	}
         });
     });

@@ -53,12 +53,6 @@ public class AccountResource {
         log.info("getAccount");
         return prepareUserDTOResponseEntity(accountApi.getUserWithAuthorities());
     }
-    
-    public ResponseEntity<List<UserDTO>> getAll() {
-    	log.info("getAll");
-    	List<UserDTO> users = accountApi.getAllUsers();
-    	return prepareListUserDTOResponseEntity(users);
-    }
 
     @RequestMapping(value = "/accountByLogin/{login:[_'.@a-z0-9-]+}",
             method = RequestMethod.GET,
@@ -91,8 +85,5 @@ public class AccountResource {
                 .map(user -> new ResponseEntity<>(userFromDB, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
-    
-    private ResponseEntity<List<UserDTO>> prepareListUserDTOResponseEntity(List<UserDTO> users) {
-    	return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
-    }
+
 }
