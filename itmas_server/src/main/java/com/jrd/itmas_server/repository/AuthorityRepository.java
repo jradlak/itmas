@@ -1,6 +1,6 @@
 package com.jrd.itmas_server.repository;
 
-import com.jrd.itmas_server.domain.Authority;
+import com.jrd.itmas_server.domain.user.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

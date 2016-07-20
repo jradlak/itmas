@@ -1,9 +1,13 @@
-package com.jrd.itmas_server.domain;
+package com.jrd.itmas_server.domain.task;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jrd.itmas_server.domain.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Kuba on 2016-07-18.
@@ -23,19 +27,43 @@ public class Task {
     @Column(name = "description", length = 50)
     private String description;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.ORDINAL)
+    private TaskStatus status;
+
+    @JsonIgnore
+    @OneToMany
     private TaskCategory category;
 
+    @Column(name = "creation_time")
     private LocalDateTime creationTime;
 
-    private LocalDateTime modyficationTime;
+    @Column(name = "modification_time")
+    private LocalDateTime modificationTime;
 
+    @Column(name = "deadline_time")
     private LocalDateTime deadLineTime;
 
+    // relationships -----------------
+
+    @JsonIgnore
+    @OneToMany
     private User creator;
 
-    private List<User> controllers;
-
+    @JsonIgnore
+    @OneToMany
     private User executor;
+
+
+    @JsonIgnore //TODO
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_controlled_tasks",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+    private Set<User> controllers;
+
+    // ---------------- relationships
 
 
     public Long getId() {
@@ -78,12 +106,12 @@ public class Task {
         this.creationTime = creationTime;
     }
 
-    public LocalDateTime getModyficationTime() {
-        return modyficationTime;
+    public LocalDateTime getModificationTime() {
+        return modificationTime;
     }
 
-    public void setModyficationTime(LocalDateTime modyficationTime) {
-        this.modyficationTime = modyficationTime;
+    public void setModificationTime(LocalDateTime modificationTime) {
+        this.modificationTime = modificationTime;
     }
 
     public LocalDateTime getDeadLineTime() {

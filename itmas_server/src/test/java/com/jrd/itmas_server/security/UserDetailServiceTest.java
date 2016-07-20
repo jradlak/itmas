@@ -1,6 +1,6 @@
 package com.jrd.itmas_server.security;
 
-import com.jrd.itmas_server.domain.User;
+import com.jrd.itmas_server.domain.user.User;
 import com.jrd.itmas_server.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Before;

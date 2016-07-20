@@ -1,6 +1,6 @@
 package com.jrd.itmas_server.repository;
 
-import com.jrd.itmas_server.domain.Task;
+import com.jrd.itmas_server.domain.task.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

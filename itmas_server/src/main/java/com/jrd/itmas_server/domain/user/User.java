@@ -1,4 +1,4 @@
-package com.jrd.itmas_server.domain;
+package com.jrd.itmas_server.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;

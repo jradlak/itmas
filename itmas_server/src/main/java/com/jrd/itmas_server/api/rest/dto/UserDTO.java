@@ -1,7 +1,7 @@
 package com.jrd.itmas_server.api.rest.dto;
 
-import com.jrd.itmas_server.domain.Authority;
-import com.jrd.itmas_server.domain.User;
+import com.jrd.itmas_server.domain.user.Authority;
+import com.jrd.itmas_server.domain.user.User;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;

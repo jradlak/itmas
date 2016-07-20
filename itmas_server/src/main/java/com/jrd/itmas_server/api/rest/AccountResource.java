@@ -1,9 +1,6 @@
 package com.jrd.itmas_server.api.rest;
 
 import com.jrd.itmas_server.api.rest.dto.UserDTO;
-import com.jrd.itmas_server.domain.User;
-import com.jrd.itmas_server.repository.UserRepository;
-import com.jrd.itmas_server.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,11 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Created by jakub on 17.04.16.

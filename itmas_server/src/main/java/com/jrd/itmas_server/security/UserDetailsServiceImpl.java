@@ -4,7 +4,7 @@ package com.jrd.itmas_server.security;
  * Created by jakub on 13.04.16.
  */
 
-import com.jrd.itmas_server.domain.User;
+import com.jrd.itmas_server.domain.user.User;
 import com.jrd.itmas_server.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

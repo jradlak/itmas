@@ -1,7 +1,7 @@
 package com.jrd.itmas_server.api.rest;
 
 import com.jrd.itmas_server.api.rest.dto.UserDTO;
-import com.jrd.itmas_server.domain.User;
+import com.jrd.itmas_server.domain.user.User;
 import com.jrd.itmas_server.repository.UserRepository;
 import com.jrd.itmas_server.service.UserService;
 import org.slf4j.Logger;

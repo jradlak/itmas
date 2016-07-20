@@ -1,4 +1,4 @@
-package com.jrd.itmas_server.domain;
+package com.jrd.itmas_server.domain.task;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

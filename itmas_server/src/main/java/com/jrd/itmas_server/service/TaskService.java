@@ -1,6 +1,6 @@
 package com.jrd.itmas_server.service;
 
-import com.jrd.itmas_server.domain.Task;
+import com.jrd.itmas_server.domain.task.Task;
 import com.jrd.itmas_server.repository.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
