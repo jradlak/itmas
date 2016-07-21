@@ -6,8 +6,6 @@ import com.jrd.itmas_server.domain.user.User;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Kuba on 2016-07-18.
@@ -31,10 +29,6 @@ public class Task {
     @Enumerated(EnumType.ORDINAL)
     private TaskStatus status;
 
-    @JsonIgnore
-    @OneToMany
-    private TaskCategory category;
-
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
 
@@ -47,24 +41,24 @@ public class Task {
     // relationships -----------------
 
     @JsonIgnore
-    @OneToMany
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")
+    private TaskCategory category;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private User creator;
 
     @JsonIgnore
-    @OneToMany
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private User executor;
 
-
-    @JsonIgnore //TODO
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_controlled_tasks",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
-    private Set<User> controllers;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User controller;
 
     // ---------------- relationships
-
 
     public Long getId() {
         return id;
@@ -130,12 +124,12 @@ public class Task {
         this.creator = creator;
     }
 
-    public List<User> getControllers() {
-        return controllers;
+    public User getController() {
+        return controller;
     }
 
-    public void setControllers(List<User> controllers) {
-        this.controllers = controllers;
+    public void setController(User controller) {
+        this.controller = controller;
     }
 
     public User getExecutor() {

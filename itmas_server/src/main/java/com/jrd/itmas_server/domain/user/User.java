@@ -1,6 +1,7 @@
 package com.jrd.itmas_server.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jrd.itmas_server.domain.task.Task;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -50,6 +51,17 @@ public class User {
     @NotNull
     private Boolean active;
 
+    // relationships -----------------
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "jrd_user")
+    private Set<Task> createdTasks;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "jrd_user")
+    private Set<Task> processingTasks;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "jrd_user")
+    private Set<Task> controlledTasks;
+
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -57,6 +69,9 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
+
+
+    // ---------------- relationships
 
     public User() {}
 

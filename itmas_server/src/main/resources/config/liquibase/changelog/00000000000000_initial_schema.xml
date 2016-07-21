@@ -68,6 +68,53 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jrd_user"/>
 
+
+        <sql>CREATE TYPE task_status AS ENUM ('NEW', 'ASSIGNED', 'IN_PROGRESS', 'FINISHED', 'VERIFIED')</sql>
+        <createTable tableName="task">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="status" type="task_status"/>
+            <column name="creation_time" type="DATETIME"/>
+            <column name="modification_time" type="DATETIME"/>
+            <column name="deadline_time" type="DATETIME"/>
+
+            <column name="category_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="creator_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="executor_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="controller_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="task_category">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(50)"/>
+        </createTable>
+
+        <!--
+            TODO: task indexes here
+        -->
+
+        <!--
+            TODO: users - tasks relations here
+        -->
+
         <loadData encoding="UTF-8"
                   file="config/liquibase/users.csv"
                   separator=";"
@@ -83,6 +130,17 @@
                   file="config/liquibase/users_authorities.csv"
                   separator=";"
                   tableName="user_authority"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/tasks_categories.csv"
+                  separator=";"
+                  tableName="task_category"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/tasks.csv"
+                  separator=";"
+                  tableName="task"/>
+
 
     </changeSet>
 </databaseChangeLog>
