@@ -5,14 +5,16 @@ import com.jrd.itmas_server.domain.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+
 
 /**
  * Created by Kuba on 2016-07-18.
  */
 @Entity
 @Table(name = "task")
-public class Task {
+public class Task implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -26,7 +28,7 @@ public class Task {
     private String description;
 
     @Column(name = "status")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
     @Column(name = "creation_time")
@@ -46,16 +48,16 @@ public class Task {
     private TaskCategory category;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator_id")
     private User creator;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "executor_id")
     private User executor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "controller_id")
     private User controller;
 

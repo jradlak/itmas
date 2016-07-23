@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "jrd_user")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,13 +57,13 @@ public class User {
 
     // relationships -----------------
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "creator")
     private Set<Task> createdTasks;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "executor")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "executor")
     private Set<Task> processingTasks;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "controller")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "controller")
     private Set<Task> controlledTasks;
 
     @JsonIgnore
@@ -129,6 +130,34 @@ public class User {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public Set<Task> getCreatedTasks() {
+        return createdTasks;
+    }
+
+    public void setCreatedTasks(Set<Task> createdTasks) {
+        this.createdTasks = createdTasks;
+    }
+
+    public Set<Task> getProcessingTasks() {
+        return processingTasks;
+    }
+
+    public void setProcessingTasks(Set<Task> processingTasks) {
+        this.processingTasks = processingTasks;
+    }
+
+    public Set<Task> getControlledTasks() {
+        return controlledTasks;
+    }
+
+    public void setControlledTasks(Set<Task> controlledTasks) {
+        this.controlledTasks = controlledTasks;
     }
 
     public Long getId() {

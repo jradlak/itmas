@@ -3,6 +3,7 @@ package com.jrd.itmas_server.domain.task;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "task_category")
-public class TaskCategory {
+public class TaskCategory implements Serializable {
 
     @NotNull
     @Id
@@ -25,6 +26,8 @@ public class TaskCategory {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private Set<Task> tasks;
+
+
 
     public Long getId() {
         return id;
