@@ -6,12 +6,14 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EntityScan(
 		basePackageClasses = { ItmasServerApplication.class, Jsr310JpaConverters.class }
 )
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class })
+@EnableTransactionManagement
 public class ItmasServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ItmasServerApplication.class, args);

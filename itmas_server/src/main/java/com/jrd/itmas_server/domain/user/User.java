@@ -57,17 +57,17 @@ public class User implements Serializable {
 
     // relationships -----------------
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "creator")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creator", cascade = CascadeType.ALL)
     private Set<Task> createdTasks;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "executor")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "executor", cascade = CascadeType.ALL)
     private Set<Task> processingTasks;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "controller")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "controller", cascade = CascadeType.ALL)
     private Set<Task> controlledTasks;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_authority",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},

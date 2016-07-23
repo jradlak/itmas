@@ -5,13 +5,17 @@ import com.jrd.itmas_server.domain.task.Task;
 import com.jrd.itmas_server.domain.user.User;
 import com.jrd.itmas_server.repository.TaskRepository;
 import com.jrd.itmas_server.repository.UserRepository;
+import com.jrd.itmas_server.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -29,11 +33,15 @@ public class UserRelationshipsTest {
     private UserRepository userRepository;
 
     @Inject
+    private UserService userService;
+
+    @Inject
     private TaskRepository taskRepository;
 
     @Test
+    @Transactional
     public void userTasksTest() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userService.getAllUsers(); // userRepository.findAll();
 
         Assert.assertTrue(users.size() > 0);
         Assert.assertTrue(users.get(0).getControlledTasks().size() > 0);
@@ -42,6 +50,7 @@ public class UserRelationshipsTest {
     }
 
     @Test
+    @Transactional
     public void tasksTest() {
         Task task = taskRepository.findOne(1L);
 
