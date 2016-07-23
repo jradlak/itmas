@@ -71,7 +71,7 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteAccount(@PathVariable String login) {
-       accountApi.deactivateUser(login);
+       accountApi.disableUser(login);
     }
 
     private ResponseEntity<UserDTO> prepareUserDTOResponseEntity(UserDTO userFromDB) {

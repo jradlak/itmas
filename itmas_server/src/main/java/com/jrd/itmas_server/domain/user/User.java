@@ -51,15 +51,18 @@ public class User {
     @NotNull
     private Boolean active;
 
+    @NotNull
+    private Boolean enabled;
+
     // relationships -----------------
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "jrd_user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
     private Set<Task> createdTasks;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "jrd_user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "executor")
     private Set<Task> processingTasks;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "jrd_user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "controller")
     private Set<Task> controlledTasks;
 
     @JsonIgnore
@@ -142,5 +145,13 @@ public class User {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

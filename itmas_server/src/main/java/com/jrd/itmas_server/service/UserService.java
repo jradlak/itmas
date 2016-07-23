@@ -89,4 +89,11 @@ public class UserService {
         userRepository.saveAndFlush(user);
         return new UserDTO(user);
     }
+
+    public UserDTO disableUser(String login) {
+        User user = userRepository.findOneByLogin(login).get();
+        user.setEnabled(false);
+        userRepository.saveAndFlush(user);
+        return new UserDTO(user);
+    }
 }

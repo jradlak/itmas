@@ -47,6 +47,10 @@ public class AccountApi {
         userService.deactivateUser(login);
     }
 
+    public void disableUser(String login) {
+        userService.disableUser(login);
+    }
+
     public Optional<UserDTO> createUserInformation(UserDTO userDTO) {
         return userRepository.findOneByLogin(userDTO.getLogin())
                 .map(user -> Optional.of(new UserDTO(user)))

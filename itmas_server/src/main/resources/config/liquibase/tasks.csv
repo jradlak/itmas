@@ -1,1 +1,2 @@
-id;name;description;status;creation_time;modification_time;deadline_time;category_id;creator_id;executor_id;controller_id
+id;name;description;status;creation_time;modification_time;deadline_time;category_id;creator_id;executor_id;controller_id;enabled
+1;add new table;Add new table to database;NEW;2016-07-23;2016-07-23;2016-08-23;1;1;1;1;true

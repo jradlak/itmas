@@ -42,20 +42,21 @@ public class Task {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "category_id")
     private TaskCategory category;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "creator_id")
     private User creator;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "executor_id")
     private User executor;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "controller_id")
     private User controller;
 
     // ---------------- relationships

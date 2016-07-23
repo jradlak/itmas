@@ -25,6 +25,7 @@
             <column name="last_name" type="varchar(50)"/>
             <column name="email" type="varchar(100)"/>
             <column name="active" type="boolean"/>
+            <column name="enabled" type="boolean"/>
         </createTable>
 
         <createTable tableName="jrd_authority">
@@ -97,6 +98,8 @@
             <column name="controller_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+
+            <column name="enabled" type="boolean"/>
         </createTable>
 
         <createTable tableName="task_category">
@@ -114,6 +117,31 @@
         <!--
             TODO: users - tasks relations here
         -->
+
+        <addForeignKeyConstraint baseColumnNames="category_id"
+                                 baseTableName="task"
+                                 constraintName="fk_category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="task_category"/>
+
+        <addForeignKeyConstraint baseColumnNames="creator_id"
+                                 baseTableName="task"
+                                 constraintName="fk_creator_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jrd_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="executor_id"
+                                 baseTableName="task"
+                                 constraintName="fk_executor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jrd_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="controller_id"
+                                 baseTableName="task"
+                                 constraintName="fk_controller_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jrd_user"/>
+
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/users.csv"
