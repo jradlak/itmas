@@ -61,6 +61,36 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public User getUserWithControlledTasks(String userLogin) {
+        User user = userRepository.findOneByLogin(userLogin).get();
+        user.getControlledTasks().size();
+        return user;
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserWithCreatedTasks(String userLogin) {
+        User user = userRepository.findOneByLogin(userLogin).get();
+        user.getCreatedTasks().size();
+        return user;
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserWithProcessingTasks(String userLogin) {
+        User user = userRepository.findOneByLogin(userLogin).get();
+        user.getProcessingTasks().size();
+        return user;
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserWithAllTasks(String userLogin) {
+        User user = userRepository.findOneByLogin(userLogin).get();
+        user.getProcessingTasks().size();
+        user.getCreatedTasks().size();
+        user.getControlledTasks().size();
+        return user;
+    }
+
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
     	return userRepository.findAll();
     }

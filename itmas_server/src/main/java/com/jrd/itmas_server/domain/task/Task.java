@@ -63,6 +63,15 @@ public class Task implements Serializable {
 
     // ---------------- relationships
 
+
+    public Task(Long id, String name, User creator, User executor, User controller) {
+        this.id = id;
+        this.name = name;
+        this.creator = creator;
+        this.executor = executor;
+        this.controller = controller;
+    }
+
     public Long getId() {
         return id;
     }
