@@ -67,7 +67,7 @@ public class User implements Serializable {
     private Set<Task> controlledTasks;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_authority",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},

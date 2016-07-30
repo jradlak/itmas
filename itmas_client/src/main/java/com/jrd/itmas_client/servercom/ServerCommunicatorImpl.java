@@ -3,6 +3,7 @@ package com.jrd.itmas_client.servercom;
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.infrastructure.utils.*;
+import com.jrd.itmas_server.api.rest.dto.TaskDTO;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -16,6 +17,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.TypeFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -78,13 +80,36 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
     public void deleteUser(String userLogin) throws ServerCommunicationException {
         authenticate();
         String queryString = serverAddress + "/api/deleteAccount/" + userLogin;
-
         HttpGet get = new HttpGet(queryString);
+
         try {
             HttpResponse response = client.execute(get);
         } catch (IOException ex) {
             throw new ServerCommunicationException(exceptionLiterals.getDeleteUser(), ex);
+        } finally {
+            logout();
         }
+    }
+
+    @Override
+    public List<TaskDTO> allUserTasks(String userLogin) throws ServerCommunicationException {
+        authenticate();
+
+        List<TaskDTO> tasks = new ArrayList<>();
+        String queryString = serverAddress + "/api/allTasks/" + userLogin;
+        HttpGet get = new HttpGet(queryString);
+
+        try {
+            HttpResponse response = client.execute(get);
+            String json = EntityUtils.toString(response.getEntity());
+            tasks = convertTasksJsonToDto(json);
+        } catch (IOException ex) {
+            throw new ServerCommunicationException(exceptionLiterals.getDeleteUser(), ex);
+        } finally {
+            logout();
+        }
+
+        return tasks;
     }
 
     private void authenticate() throws ServerCommunicationException {
@@ -139,6 +164,17 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
             return  json;
         } catch (IOException e) {
             throw new ServerCommunicationException(exceptionLiterals.getUserDataConversion(), e);
+        }
+    }
+
+    private List<TaskDTO> convertTasksJsonToDto(String json) throws ServerCommunicationException {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            List<TaskDTO> tasks = mapper.readValue(json,
+                    TypeFactory.defaultInstance().constructCollectionType(List.class, TaskDTO.class));
+            return tasks;
+        } catch (IOException ex) {
+            throw new ServerCommunicationException(exceptionLiterals.getUserDataInterpretation(), ex);
         }
     }
 

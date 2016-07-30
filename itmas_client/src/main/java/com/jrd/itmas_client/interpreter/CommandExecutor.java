@@ -9,6 +9,7 @@ import com.jrd.itmas_client.infrastructure.validation.ValidationResult;
 import com.jrd.itmas_client.servercom.ServerCommunicator;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.ui.UIHandler;
+import com.jrd.itmas_server.api.rest.dto.TaskDTO;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -58,6 +59,15 @@ public class CommandExecutor {
         } catch (CommandExecutionException ex) {
             throw ex;
         }
+    }
+
+    public List<TaskDTO> tasksShow(String userLogin) throws ServerCommunicationException {
+        return serverCommunicator.allUserTasks(userLogin);
+    }
+
+    public TaskDTO createTask(TaskDTO task) {
+        //TODO
+        return task;
     }
 
     private Optional<UserDTO> getNewUserInfo(String userLogin, String fileName) throws CommandExecutionException, IOException {

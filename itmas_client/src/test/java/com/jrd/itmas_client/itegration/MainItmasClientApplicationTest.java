@@ -9,11 +9,13 @@ import com.jrd.itmas_client.servercom.ServerCommunicator;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.ui.UIHandler;
 import com.jrd.itmas_client.infrastructure.utils.*;
+import com.jrd.itmas_server.api.rest.dto.TaskDTO;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  * Created by jakub on 08.06.16.
@@ -78,6 +80,11 @@ public class MainItmasClientApplicationTest {
 
             @Override
             public void deleteUser(String userLogin) throws ServerCommunicationException {
+            }
+
+            @Override
+            public List<TaskDTO> allUserTasks(String userLogin) throws ServerCommunicationException {
+                return null;
             }
         };
 

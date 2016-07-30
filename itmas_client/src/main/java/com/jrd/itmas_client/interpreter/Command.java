@@ -18,7 +18,10 @@ public class Command {
         USER_ADD("user " + wPattern + "add"),
         USER_REMOVE("user " + wPattern + "remove"),
         USER_SHOW("user " + wPattern + "show"),
-        USER_EDIT("user " + wPattern + "edit");
+        USER_EDIT("user " + wPattern + "edit"),
+
+        TASK_CREATE("task " + wPattern + "create"),
+        TASK_ALL_SHOW("tasks of " + wPattern + "show");
 
         private String pattern;
 
@@ -35,7 +38,9 @@ public class Command {
             CommandType.USER_ADD,
             CommandType.USER_REMOVE,
             CommandType.USER_SHOW,
-            CommandType.USER_EDIT
+            CommandType.USER_EDIT,
+            CommandType.TASK_CREATE,
+            CommandType.TASK_ALL_SHOW
     };
 
     private static final Logger log = Logger.getLogger(Command.class.getName());

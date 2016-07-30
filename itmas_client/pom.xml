@@ -14,12 +14,21 @@
 
     <dependencies>
 
+        <!-- itmas server -->
+        <dependency>
+            <groupId>pl.com.jrd</groupId>
+            <artifactId>itmas_server</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+        <!-- yaml -->
         <dependency>
             <groupId>com.esotericsoftware.yamlbeans</groupId>
             <artifactId>yamlbeans</artifactId>
             <version>1.09</version>
         </dependency>
 
+        <!-- server communication -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
@@ -32,6 +41,15 @@
             <version>1.9.13</version>
         </dependency>
 
+        <!-- other -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.10</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

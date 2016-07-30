@@ -63,6 +63,7 @@ public class Task implements Serializable {
 
     // ---------------- relationships
 
+    public Task() {}
 
     public Task(Long id, String name, User creator, User executor, User controller) {
         this.id = id;
@@ -98,6 +99,14 @@ public class Task implements Serializable {
 
     public TaskCategory getCategory() {
         return category;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 
     public void setCategory(TaskCategory category) {

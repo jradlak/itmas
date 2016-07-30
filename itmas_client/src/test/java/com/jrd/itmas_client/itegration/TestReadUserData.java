@@ -9,6 +9,7 @@ import com.jrd.itmas_client.interpreter.CommandExecutor;
 import com.jrd.itmas_client.servercom.ServerCommunicator;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
 import com.jrd.itmas_client.ui.UIHandler;
+import com.jrd.itmas_server.api.rest.dto.TaskDTO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +44,11 @@ public class TestReadUserData {
 
             @Override
             public void deleteUser(String userLogin) throws ServerCommunicationException {
+            }
+
+            @Override
+            public List<TaskDTO> allUserTasks(String userLogin) throws ServerCommunicationException {
+                return null;
             }
         };
 
