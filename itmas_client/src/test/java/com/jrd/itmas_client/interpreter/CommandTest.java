@@ -26,4 +26,14 @@ public class CommandTest {
         Assert.assertTrue(parameters != null && parameters.length == 1);
         Assert.assertTrue("user".equals(parameters[0]));
     }
+
+    @Test
+    public void commandShowTasksTest() {
+        Command command = new Command("tasks of 'user' show");
+        String[] parameters = command.getParameters();
+
+        Assert.assertTrue(Command.CommandType.TASK_ALL_SHOW.name().equals(command.getCommandType().name()));
+        Assert.assertTrue(parameters != null && parameters.length == 1);
+        Assert.assertTrue("user".equals(parameters[0]));
+    }
 }

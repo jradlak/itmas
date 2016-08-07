@@ -52,4 +52,6 @@ public class BackEndCommunicationTest {
         Assert.assertTrue(user != null);
         Assert.assertTrue("jradlak".equals(user.getLogin()));
     }
+
+    //public void
 }

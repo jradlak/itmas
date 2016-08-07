@@ -1,7 +1,9 @@
 package com.jrd.itmas_server.api.rest.dto;
 
 import com.jrd.itmas_server.domain.task.Task;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -11,6 +13,8 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaskDTO {
     private Long id;
 
@@ -20,13 +24,15 @@ public class TaskDTO {
 
     private String status;
 
-    private LocalDateTime creationTime;
+    private String creationTime;
 
-    private LocalDateTime modificationTime;
+    private String modificationTime;
 
-    private LocalDateTime deadLineTime;
+    private String deadLineTime;
 
     private Long categoryId;
+
+    private String categoryName;
 
     private String creatorLogin;
 
@@ -37,10 +43,13 @@ public class TaskDTO {
     public TaskDTO(Task task) {
         this.id = task.getId();
         this.name = task.getName();
+        this.description = task.getDescription();
         this.status = task.getStatus().toString();
-        this.creationTime = task.getCreationTime();
-        this.modificationTime = task.getModificationTime();
+        this.creationTime = task.getCreationTime().toString();
+        this.modificationTime = task.getModificationTime().toString();
+        this.deadLineTime = task.getDeadLineTime().toString();
         this.categoryId = task.getCategory().getId();
+        this.categoryName = task.getCategory().getName();
         this.creatorLogin = task.getCreator().getLogin();
         this.executorLogin = task.getExecutor().getLogin();
         this.controllerLogin = task.getController().getLogin();

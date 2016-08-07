@@ -174,7 +174,7 @@ public class ServerCommunicatorImpl implements ServerCommunicator {
                     TypeFactory.defaultInstance().constructCollectionType(List.class, TaskDTO.class));
             return tasks;
         } catch (IOException ex) {
-            throw new ServerCommunicationException(exceptionLiterals.getUserDataInterpretation(), ex);
+            throw new ServerCommunicationException(exceptionLiterals.getUserDataInterpretation() + ex.getMessage(), ex);
         }
     }
 

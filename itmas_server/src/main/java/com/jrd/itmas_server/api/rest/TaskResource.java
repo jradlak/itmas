@@ -33,7 +33,7 @@ public class TaskResource {
         this.taskApi = taskApi;
     }
 
-    @RequestMapping(value = "/allTasks",
+    @RequestMapping(value = "/allTasks/{login:[_'.@a-z0-9-]+}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional

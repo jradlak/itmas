@@ -3,8 +3,6 @@ package com.jrd.itmas_client.interpreter;
 import com.jrd.itmas_client.infrastructure.exceptions.CommandExecutionException;
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 
-import java.io.IOException;
-
 
 /**
  * Created by jakub on 05.06.16.
@@ -28,7 +26,9 @@ public class CommandInterpreter {
             } else {
                 commandExecutor.addUser(userLogin, fileName);
             }
+        } else if (command.getCommandType() == Command.CommandType.TASK_ALL_SHOW) {
+            String userLogin = command.getParameter(0);
+            commandExecutor.showTasks(userLogin);
         }
     }
-
 }

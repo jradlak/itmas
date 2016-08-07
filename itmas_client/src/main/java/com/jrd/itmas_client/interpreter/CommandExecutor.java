@@ -61,12 +61,14 @@ public class CommandExecutor {
         }
     }
 
-    public List<TaskDTO> tasksShow(String userLogin) throws ServerCommunicationException {
-        return serverCommunicator.allUserTasks(userLogin);
+    public List<TaskDTO> showTasks(String userLogin) throws ServerCommunicationException {
+        List<TaskDTO> tasks = serverCommunicator.allUserTasks(userLogin);
+        uiHandler.printTasksData(userLogin, tasks);
+        return tasks;
     }
 
     public TaskDTO createTask(TaskDTO task) {
-        //TODO
+        // TODO:
         return task;
     }
 
@@ -105,5 +107,4 @@ public class CommandExecutor {
         userDTO.setPassword(mUserData.get(UserDataValidator.password));
         return Optional.of(userDTO);
     }
-
 }

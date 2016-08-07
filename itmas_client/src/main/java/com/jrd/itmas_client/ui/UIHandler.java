@@ -4,6 +4,7 @@ import com.jrd.itmas_client.infrastructure.exceptions.CommandSyntaxException;
 import com.jrd.itmas_client.infrastructure.exceptions.ServerCommunicationException;
 import com.jrd.itmas_client.infrastructure.validation.ValidationResult;
 import com.jrd.itmas_client.servercom.dto.UserDTO;
+import com.jrd.itmas_server.api.rest.dto.TaskDTO;
 
 import java.io.PrintStream;
 import java.util.Arrays;
@@ -55,6 +56,20 @@ public class UIHandler {
         printMessage("E-mail:       " + userDTO.getEmail());
         printMessage("Authorities:  " + userDTO.getAuthorities());
     }
+
+    public void printTasksData(String userLogin, List<TaskDTO> taskDTOs) {
+        printMessage("User " + userLogin + " tasks: ");
+        printMessage("-------------------------");
+        for (TaskDTO t : taskDTOs) {
+            printMessage("Name:          " + t.getName());
+            printMessage("Description:   " + t.getDescription());
+            printMessage("Category:      " + t.getCategoryName());
+            printMessage("Creation time: " + t.getCreationTime());
+            printMessage("Deadline time: " + t.getDeadLineTime());
+            printMessage("Creator login: " + t.getCreatorLogin());
+            printMessage("Status:        " + t.getStatus());
+        }
+     }
 
     public void showValidationErrors(List<ValidationResult> results) {
         results.stream().forEach(r -> printMessage(r.getErrorDescription()));
