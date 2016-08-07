@@ -69,7 +69,7 @@ public class UIHandler {
             printMessage("Creator login: " + t.getCreatorLogin());
             printMessage("Status:        " + t.getStatus());
         }
-     }
+    }
 
     public void showValidationErrors(List<ValidationResult> results) {
         results.stream().forEach(r -> printMessage(r.getErrorDescription()));
