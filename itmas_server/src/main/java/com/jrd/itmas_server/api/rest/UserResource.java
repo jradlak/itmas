@@ -9,12 +9,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Kuba on 2016-07-16.
@@ -41,6 +43,20 @@ public class UserResource {
         log.info("getAll");
         List<UserDTO> users = accountApi.getAllUsers();
         return prepareListUserDTOResponseEntity(users);
+    }
+
+    /**
+     * GET  /users/:login -> get the "login" user.
+     */
+    @RequestMapping(value = "/users/{login:[_'.@a-z0-9-]+}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    //@Timed
+    public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
+        log.debug("REST request to get User : {}", login);
+        Optional<UserDTO> userDTO = accountApi.getUserByLogin(login);
+        return userDTO.isPresent() ? new ResponseEntity<>(userDTO.get(), HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     private ResponseEntity<List<UserDTO>> prepareListUserDTOResponseEntity(List<UserDTO> users) {

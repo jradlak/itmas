@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Created by jakub on 24.04.16.
@@ -82,11 +84,14 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User getUserWithAllTasks(String userLogin) {
-        User user = userRepository.findOneByLogin(userLogin).get();
-        user.getProcessingTasks().size();
-        user.getCreatedTasks().size();
-        user.getControlledTasks().size();
+    public Optional<User> getUserWithAllTasks(String userLogin) {
+        Optional<User> user = userRepository.findOneByLogin(userLogin);
+        if (user.isPresent()) {
+            user.get().getProcessingTasks().size();
+            user.get().getCreatedTasks().size();
+            user.get().getControlledTasks().size();
+        }
+
         return user;
     }
 
@@ -94,6 +99,7 @@ public class UserService {
     public List<User> getAllUsers() {
     	return userRepository.findAll();
     }
+
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email) {
         User newUser = new User();

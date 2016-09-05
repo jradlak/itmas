@@ -2,13 +2,26 @@
 	<table class="table">
 		<thead>
             <tr>
-                <th>First name</th><th>Last Name</th><th>Login</th><th>E-mail</th><th>Authorities</th>
+                <th>First name</th><th>Last Name</th><th>Login</th>
+                <th>E-mail</th><th>Authorities</th><th>Details</th>
             </tr>
 		</thead>
         <tbody>
             <tr ng-repeat="user in users">
                 <td>{{user.firstName}}</td><td>{{user.lastName}}</td>
-                <td>{{user.login}}</td><td>{{user.email}}</td><td>{{user.authorities}}</td>
+                <td>{{user.login}}</td><td>{{user.email}}</td>
+                <td>
+                    <div ng-repeat="authority in user.authorities">
+                        <span class="label label-info">{{authority}}</span>
+                    </div>
+                </td>
+                <td>
+                    <button type="submit"
+                            ui-sref="user-management-detail({login:user.login})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </button>
+                </td>
             </tr>
         </tbody>
 	</table>

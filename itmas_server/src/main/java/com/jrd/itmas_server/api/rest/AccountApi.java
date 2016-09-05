@@ -43,6 +43,15 @@ public class AccountApi {
                 .collect(Collectors.toList());
     }
 
+    public Optional<UserDTO> getUserByLogin(String login) {
+        Optional<User> user = userService.getUserWithAllTasks(login);
+        if (user.isPresent()) {
+            return Optional.of(new UserDTO(user.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
     public void deactivateUser(String login) {
         userService.deactivateUser(login);
     }
