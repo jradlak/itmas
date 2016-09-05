@@ -1,11 +1,15 @@
 <div>
-    <table>
-        <tr>
-            <th>Name</th><th>Description</th><th>Creator Login</th><th>Controller Login</th>
-        </tr>
-        <tr ng-repeat="task in tasks">
-            <td>{{task.name}}</td><td>{{task.description}}</td>
-            <td>{{task.creatorLogin}}</td><td>{{task.controllerLogin}}</td>
-        </tr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th><th>Description</th><th>Creator Login</th><th>Controller Login</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="task in tasks">
+                <td>{{task.name}}</td><td>{{task.description}}</td>
+                <td>{{task.creatorLogin}}</td><td>{{task.controllerLogin}}</td>
+            </tr>
+        </tbody>
     </table>
 </div>

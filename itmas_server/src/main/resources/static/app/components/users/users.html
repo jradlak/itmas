@@ -1,11 +1,15 @@
 <div>
-	<table>
-		<tr>
-		<th>First name</th><th>Last Name</th><th>Login</th><th>e-mail</th><th>authorities</th>
-		</tr>		
-		<tr ng-repeat="user in users">
-			<td>{{user.firstName}}</td><td>{{user.lastName}}</td>
-			<td>{{user.login}}</td><td>{{user.email}}</td><td>{{user.authorities}}</td>
-		</tr>
+	<table class="table">
+		<thead>
+            <tr>
+                <th>First name</th><th>Last Name</th><th>Login</th><th>E-mail</th><th>Authorities</th>
+            </tr>
+		</thead>
+        <tbody>
+            <tr ng-repeat="user in users">
+                <td>{{user.firstName}}</td><td>{{user.lastName}}</td>
+                <td>{{user.login}}</td><td>{{user.email}}</td><td>{{user.authorities}}</td>
+            </tr>
+        </tbody>
 	</table>
 </div>
