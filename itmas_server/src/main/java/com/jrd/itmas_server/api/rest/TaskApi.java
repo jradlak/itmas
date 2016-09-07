@@ -26,7 +26,7 @@ public class TaskApi {
         this.taskService = taskService;
     }
 
-    public List<TaskDTO> getAllUserTasks(String userLogin) {
+    public List<TaskDTO> getAllUserTasks(String userLogin) throws Exception {
         return taskService.getAllUserTasks(userLogin)
                 .stream()
                 .map(t -> new TaskDTO(t))

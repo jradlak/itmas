@@ -10,5 +10,6 @@ angular.module('itmas_server')
                         data = angular.fromJson(data);
                         return data;
                     }
-                });
+                }
         });
+    });

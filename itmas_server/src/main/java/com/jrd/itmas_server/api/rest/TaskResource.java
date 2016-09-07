@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +40,10 @@ public class TaskResource {
     @Transactional
     @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<List<TaskDTO>> getAllUserTasks(@PathVariable String login) {
-        return new ResponseEntity<>(taskApi.getAllUserTasks(login), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(taskApi.getAllUserTasks(login), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
     }
 }

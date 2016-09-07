@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Kuba on 2016-07-18.
@@ -35,12 +36,17 @@ public class TaskService {
         this.userService = userService;
     }
 
-    public List<Task> getAllUserTasks(String userLogin) {
-        User user = userService.getUserWithAllTasks(userLogin);
+    //TODO: make better exception system
+    public List<Task> getAllUserTasks(String userLogin) throws Exception {
+        Optional<User> user = userService.getUserWithAllTasks(userLogin);
+        if (!user.isPresent()) {
+            throw new Exception("User not found.");
+        }
+
         List<Task> result = new ArrayList<>();
-        result.addAll(user.getControlledTasks());
-        result.addAll(user.getCreatedTasks());
-        result.addAll(user.getProcessingTasks());
+        result.addAll(user.get().getControlledTasks());
+        result.addAll(user.get().getCreatedTasks());
+        result.addAll(user.get().getProcessingTasks());
         return result;
     }
 

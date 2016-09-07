@@ -15,5 +15,18 @@ angular.module('itmas_server')
                         controller: 'UsersController'
                     }
                 }
+            })
+            .state('users-detail', {
+                parent: 'users',
+                url: '/user/:login',
+                data: {
+                    authorities: ['ROLE_ADMIN']
+                },
+                views: {
+                    'content@': {
+                        templateUrl: '/app/components/users/users-detail.html',
+                        controller: 'UsersDetailController'
+                    }
+                }
             });
     });
