@@ -61,6 +61,25 @@
             </tr>
             </tbody>
         </table>
+        <table class="table table-striped">
+            <h3>Created tasks: </h3>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Creation time</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="task in user.createdTasks">
+                <td>{{task.name}}</td>
+                <td>{{task.description}}</td>
+                <td>{{task.status}}</td>
+                <td>{{task.creationTime}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <button type="submit"

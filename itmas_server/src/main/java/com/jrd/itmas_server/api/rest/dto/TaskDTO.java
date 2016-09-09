@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by jakub on 30.07.16.
@@ -54,4 +57,9 @@ public class TaskDTO {
         this.executorLogin = task.getExecutor().getLogin();
         this.controllerLogin = task.getController().getLogin();
     }
+
+    public static Set<TaskDTO> makeTasksDTOs(Set<Task> tasks) {
+        return new HashSet<>(tasks.stream().map(TaskDTO::new).collect(Collectors.toList()));
+    }
+
 }

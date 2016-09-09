@@ -1,5 +1,6 @@
 package com.jrd.itmas_server.api.rest.dto;
 
+import com.jrd.itmas_server.domain.task.Task;
 import com.jrd.itmas_server.domain.user.Authority;
 import com.jrd.itmas_server.domain.user.User;
 import org.hibernate.validator.constraints.Email;
@@ -38,6 +39,12 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private Set<TaskDTO> createdTasks;
+
+    private Set<TaskDTO> processingTasks;
+
+    private Set<TaskDTO> controlledTasks;
+
     private Boolean active;
 
     public UserDTO() {}
@@ -46,11 +53,15 @@ public class UserDTO {
         this(user.getLogin(), user.getPassword(), user.getFirstName(),
                 user.getLastName(), user.getEmail(),
                 user.getAuthorities().stream().map(Authority::getName)
-                        .collect(Collectors.toSet()), user.isActive());
+                        .collect(Collectors.toSet()), user.isActive(),
+                TaskDTO.makeTasksDTOs(user.getCreatedTasks()),
+                TaskDTO.makeTasksDTOs(user.getProcessingTasks()),
+                TaskDTO.makeTasksDTOs(user.getControlledTasks()));
     }
 
     public UserDTO(String login, String password, String firstName,
-                   String lastName, String email,Set<String> authorities, Boolean active) {
+                   String lastName, String email,Set<String> authorities, Boolean active,
+                   Set<TaskDTO> createdTasks, Set<TaskDTO> processingTasks, Set<TaskDTO> controlledTasks) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -58,6 +69,9 @@ public class UserDTO {
         this.email = email;
         this.authorities = authorities;
         this.active = active;
+        this.createdTasks = createdTasks;
+        this.processingTasks = processingTasks;
+        this.controlledTasks = controlledTasks;
     }
 
     public static int getPasswordMinLength() {
@@ -118,5 +132,29 @@ public class UserDTO {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Set<TaskDTO> getCreatedTasks() {
+        return createdTasks;
+    }
+
+    public void setCreatedTasks(Set<TaskDTO> createdTasks) {
+        this.createdTasks = createdTasks;
+    }
+
+    public Set<TaskDTO> getProcessingTasks() {
+        return processingTasks;
+    }
+
+    public void setProcessingTasks(Set<TaskDTO> processingTasks) {
+        this.processingTasks = processingTasks;
+    }
+
+    public Set<TaskDTO> getControlledTasks() {
+        return controlledTasks;
+    }
+
+    public void setControlledTasks(Set<TaskDTO> controlledTasks) {
+        this.controlledTasks = controlledTasks;
     }
 }
