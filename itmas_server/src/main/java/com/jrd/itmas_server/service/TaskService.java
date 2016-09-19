@@ -56,4 +56,9 @@ public class TaskService {
         result.addAll(user.getCreatedTasks());
         return result;
     }
+
+    public Task getTaskById(Long id) throws Exception {
+        Task task = taskRepository.getOne(id);
+        return task;
+    }
 }

@@ -26,6 +26,10 @@ public class TaskApi {
         this.taskService = taskService;
     }
 
+    public TaskDTO getTaskById(Long id) throws Exception {
+        return new TaskDTO(taskService.getTaskById(id));
+    }
+
     public List<TaskDTO> getAllUserTasks(String userLogin) throws Exception {
         return taskService.getAllUserTasks(userLogin)
                 .stream()

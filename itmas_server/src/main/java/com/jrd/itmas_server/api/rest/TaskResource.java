@@ -34,7 +34,20 @@ public class TaskResource {
         this.taskApi = taskApi;
     }
 
-    @RequestMapping(value = "/allTasks/{login:[_'.@a-z0-9-]+}",
+    @RequestMapping(value = "/tasks/{id:[0-9]+}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @Secured(AuthoritiesConstants.USER)
+    public ResponseEntity<TaskDTO> getTaskById(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(taskApi.getTaskById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new TaskDTO(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/tasks/{login:[a-z]+}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional

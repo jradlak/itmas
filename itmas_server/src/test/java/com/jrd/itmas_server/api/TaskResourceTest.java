@@ -37,8 +37,18 @@ public class TaskResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGetAccountByLogin() throws Exception {
-        mockMvc.perform(get("/api/allTasks/user")
+    public void tesGetAllUsersTasks() throws Exception {
+        mockMvc.perform(get("/api/tasks/user")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(containsString("add new table")))
+                .andExpect(content().string(containsString("BUG")));
+    }
+
+    @Test
+    public void testGetTaskById() throws Exception {
+        mockMvc.perform(get("/api/tasks/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

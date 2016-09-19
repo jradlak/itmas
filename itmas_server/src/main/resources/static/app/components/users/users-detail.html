@@ -73,7 +73,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="task in user.createdTasks">
-                <td>{{task.name}}</td>
+                <td><a ui-sref="tasks-detail({task:task.id})">{{task.name}}</a></td>
                 <td>{{task.description}}</td>
                 <td>{{task.status}}</td>
                 <td>{{task.creationTime}}</td>
